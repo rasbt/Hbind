@@ -183,7 +183,7 @@ void build_interact_tbl(features_node_pt features_head,
   int ligh_idx;
   int targ_idx;
 
-  fprintf(fout, "+++++++++++++++++++++++++++++ Interaction Table ++++++++++++++++++++++++++++\n");
+  fprintf(fout, "++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++\n");
   fprintf(fout, "#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein\n");
   fprintf(fout, "#            |  #  type    -- RES   #  type | Dist.  Angle  Interaction\n");
   for(i = 0; i < features->number_of_hbonds; i++ ){
