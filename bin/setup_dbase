@@ -1,0 +1,84 @@
+#!/bin/sh
+# setup_dbase    Rajesh Korde Wed Apr  3 14:51:05 EST 2002
+#
+# Usage:  setup_dbase target template database database_locn
+#
+# * creates the directory structure for a screening experiment.
+# * computes interaction centers
+# * creates <database>.db and <database>.pts
+#
+
+if test $# -ne 5 
+then
+    echo "Usage: $0 <target> <template> <database> <database_locn> <pdb_locn>"
+	exit
+fi
+
+if test -z $SLIDE_DIR
+then
+    echo "ERROR: environment variable SLIDE_DIR not set"
+    exit
+fi
+
+if test -z $SLIDE_DATA_DIR
+then
+    echo "ERROR: environment variable SLIDE_DATA_DIR not set"
+    exit
+fi
+
+data_dir=$SLIDE_DATA_DIR
+slide_dir=$SLIDE_DIR
+
+target=$1
+template=$2
+database=$3
+dblocn=$4
+pdblocn=$5
+
+$slide_dir/bin/slide_setup.pl $target $template $database
+
+echo "Dehydrogenating and copying $pdblocn file to $data_dir/$target/${target}.pdb ..."
+if test -f $pdblocn
+then
+	$slide_dir/bin/pdbdehydrogen $pdblocn> /tmp/${target}.pdb
+	mv /tmp/${target}.pdb $data_dir/$target
+else
+	echo "Error: Cannot find $pdblocn"
+	exit
+fi
+
+if test ! -d $data_dir/databases
+then
+	echo "Creating $data_dir/databases ..."
+	mkdir $data_dir/databases
+fi
+
+if test ! -d $data_dir/databases/$database
+then
+	echo "Creating $data_dir/databases/$database ..."
+	mkdir $data_dir/databases/$database
+fi
+
+# Here 7000 is the max no of mol2 files possible in a pts file. This var
+# is also defined in $SLIDE_DIR/src/slide/inc/defs.h as
+# MAX_NUMBER_OF_PTS_COMPOUNDS.
+
+$slide_dir/bin/create_dbase.pl $dblocn $database $slide_dir $data_dir 7000
+
+#echo "Creating ${database}.pts file ..."
+#if test -f $data_dir/databases/${database}.pts
+#then
+#	rm -f $data_dir/databases/${database}.pts
+#	echo "Deleting old pts file"
+#fi
+#touch $data_dir/databases/${database}.pts
+#cd $dblocn
+#for i in `ls *.mol2`
+#do 
+#	$slide_dir/bin/compute_interaction_centers $i>> $data_dir/databases/${database}.pts
+#done
+#cd $data_dir
+#
+#echo "Creating ${database}.db file ..."
+#echo $dblocn ${database}.pts > $data_dir/databases/${database}.db
+

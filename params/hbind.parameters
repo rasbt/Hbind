@@ -1,0 +1,15 @@
+#  default parameter file
+DME_THRESHOLD (A)                     0.3
+RMS_THRESHOLD (A)                     0.3
+ANCHOR_TRANSLATION (A)                0.3
+ANCHOR_OVERLAP (A)                    0.3
+SIDE_CHAIN_OVERLAP (A)                0.3
+INTRA_OVERLAP (A)                     0.1
+INTERMEDIATELY_TOLERATED_OVERLAP (A)  2.0
+FINALLY_TOLERATED_MAX_BUMP (A)        0.5
+FINALLY_TOLERATED_OVERLAP (A)         2.0
+SCORE_CUTOFF (kcal/mol)               0.0
+MAX_TEMPLATE_TRIANGLES (#)        1500000
+MATCH_2_KEY_POINTS (n/a) 	False
+GROUP_CONFORMERS (n/a)	 	True
+RESTART_MOLECULE (n/a)          None

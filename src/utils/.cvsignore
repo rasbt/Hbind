@@ -1,0 +1,10 @@
+*~
+*.o
+gen_lig_box
+remove_close_points
+template
+ligand_based_template
+metal_template
+.deps
+Makefile.in
+*.a

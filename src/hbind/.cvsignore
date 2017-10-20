@@ -1,0 +1,8 @@
+slide
+slide_score
+ligand_flag
+*~
+*.o
+.deps
+stamp*
+Makefile.in

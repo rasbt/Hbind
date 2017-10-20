@@ -1,0 +1,198 @@
+#!/bin/sh
+# temp_gen Rajesh Korde Thu Apr 11 14:06:57 EDT 2002
+#
+# script either expects borders.xyz to be in $target/$template/in (box mode)
+# or it creates it (in ligand or sphere mode). Once borders.xyz is in place, it
+# runs the template generation program
+# 
+
+if test $# -lt 1
+then
+    echo "$0: valid swtiches are -[l|c|b|g]"
+    exit
+fi
+
+if test -z $SLIDE_DIR
+then
+    echo "ERROR: environment variable SLIDE_DIR not set"
+    exit
+fi
+
+if test -z $SLIDE_DATA_DIR
+then
+    echo "ERROR: environment variable SLIDE_DATA_DIR not set"
+    exit
+fi
+
+data_dir=$SLIDE_DATA_DIR
+slide_dir=$SLIDE_DIR
+
+lig_box_name_nums=0
+
+## handle the case when slide is run in ligand_based_template mode
+
+## handle the case when slide is running in ligand mode
+if test $1 = "-g"
+    then
+    echo "Running in ligand_based_template mode"
+    if test $# -lt 5
+	then
+	echo "Usage: $0 -g <target> <template> <clustering_threshold> <ligand1.mol2> [<ligand*>.mol2]\n"
+	exit
+    else
+## dehydrogenate the pdb file (in case it hadn't already been done by setup_dbase)
+	target_name=$2
+	echo "Dehydrogenating ${target_name}.pdb file in $data_dir/$target_name/${target_name}.pdb ..."
+	if test -f $data_dir/$target_name/${target_name}.pdb
+	    then
+	    mkdir  $data_dir/$target_name/tmp
+	    $slide_dir/bin/pdbdehydrogen $data_dir/$target_name/${target_name}.pdb >  $data_dir/$target_name/tmp/${target_name}.pdb
+	    mv  $data_dir/$target_name/tmp/${target_name}.pdb $data_dir/$target_name
+	    rm -fr  $data_dir/$target_name/tmp
+	else
+	    echo "Error: Cannot find $data_dir/$target_name/${target_name}.pdb"
+	    exit
+	fi
+	
+        # vanvoor4 * May 4, 2009 *
+        # Removed bogus temporary items -- the C++ code now handles the
+        # template files and writes to the correct template directory.  
+        # Users shouldn't be writing to the same temporary directory so we
+        # shouldn't have the issue of clobbering files.
+	shift
+	target=$1
+	template=$2
+	$slide_dir/bin/ligand_based_template $@
+	exit
+    fi
+elif test $1 = "-l"
+    then
+    echo "Running in Ligand mode"
+    if test $# -lt 7
+	then
+	echo "Usage: $0 -l <target> <template> <Hbonding_point_density> <grid_spacing> <clustering_threshold> <ligand1.mol2> [<ligand*>.mol2]\n"
+	exit
+    else
+## dehydrogenate the pdb file (in case it hadn't already been done by setup_dbase)
+	target_name=$2
+	echo "Dehydrogenating ${target_name}.pdb file in $data_dir/$target_name/${target_name}.pdb ..."
+	if test -f $data_dir/$target_name/${target_name}.pdb
+	    then
+	    mkdir  $data_dir/$target_name/tmp
+	    $slide_dir/bin/pdbdehydrogen $data_dir/$target_name/${target_name}.pdb >  $data_dir/$target_name/tmp/${target_name}.pdb
+	    mv  $data_dir/$target_name/tmp/${target_name}.pdb $data_dir/$target_name
+	    rm -fr  $data_dir/$target_name/tmp
+	else
+	    echo "Error: Cannot find $data_dir/$target_name/${target_name}.pdb"
+	    exit
+	fi
+	shift
+	lig_box_target=$1
+	lig_box_template=$2
+	flocn=$data_dir/$1/$2/in/borders.xyz
+	if test -f $flocn
+	    then
+	    rm -f $flocn
+	fi
+	$slide_dir/bin/gen_lig_box $@ > $flocn
+	lig_box_name_nums=$#
+    fi
+elif test $1 = "-c"
+    then
+    echo "Running in Sphere mode"
+    if test $# -ne 10
+	then
+	echo "Usage: $0 -c <target> <template> <Hbonding_point_density> <grid_spacing> <clustering_threshold> <x> <y> <z> <r>\n"
+	exit
+    else
+## dehydrogenate the pdb file (in case it hadn't already been done by setup_dbase)
+	target_name=$2
+	echo "Dehydrogenating ${target_name}.pdb file in $data_dir/$target_name/${target_name}.pdb ..."
+	if test -f $data_dir/$target_name/${target_name}.pdb
+	    then
+	    mkdir  $data_dir/$target_name/tmp
+	    $slide_dir/bin/pdbdehydrogen $data_dir/$target_name/${target_name}.pdb >  $data_dir/$target_name/tmp/${target_name}.pdb
+	    mv  $data_dir/$target_name/tmp/${target_name}.pdb $data_dir/$target_name
+	    rm -fr  $data_dir/$target_name/tmp
+	else
+	    echo "Error: Cannot find $data_dir/$target_name/${target_name}.pdb"
+	    exit
+	fi
+	shift
+	flocn=$data_dir/$1/$2/in/borders.xyz
+	if test -f $flocn
+	    then
+	    rm -f $flocn
+	fi
+	$slide_dir/bin/gen_sph_box.pl $6 $7 $8 $9 >$flocn
+    fi
+elif test $1 = "-b"
+    then
+    echo "Running in Box mode"
+    if test $# -ne 6
+	then
+	echo "Usage: $0 -b <target> <template> <Hbonding_point_density> <grid_spacing> <clustering_threshold>\n"
+	exit
+    else
+## dehydrogenate the pdb file (in case it hadn't already been done by setup_dbase)
+	target_name=$2
+	echo "Dehydrogenating ${target_name}.pdb file in $data_dir/$target_name/${target_name}.pdb ..."
+	if test -f $data_dir/$target_name/${target_name}.pdb
+	    then
+	    mkdir  $data_dir/$target_name/tmp
+	    $slide_dir/bin/pdbdehydrogen $data_dir/$target_name/${target_name}.pdb >  $data_dir/$target_name/tmp/${target_name}.pdb
+	    mv  $data_dir/$target_name/tmp/${target_name}.pdb $data_dir/$target_name
+	    rm -fr  $data_dir/$target_name/tmp
+	else
+	    echo "Error: Cannot find $data_dir/$target_name/${target_name}.pdb"
+	    exit
+	fi
+	shift
+	if test ! -f $data_dir/$1/$2/in/borders.xyz
+	    then
+	    echo "$0: $data_dir/$1/$2/in/borders.xyz missing\n"
+	    exit
+	fi
+    fi
+else
+    echo "$0: valid swtiches are -[l|c|b|g]"
+    exit
+fi
+
+$slide_dir/bin/template $1 $2 $3 $4 $5
+
+if [ $lig_box_name_nums -ne "0" ];then
+    echo "Pruning template to match ligand size"
+    shift
+    shift
+    shift
+    shift
+    shift
+    lig_box_name_nums=$#
+    mkdir $data_dir/$lig_box_target/$lig_box_template/in/tmp
+    $slide_dir/bin/prune_template.pl 3.0 $data_dir/$lig_box_target/$lig_box_template/in/template $data_dir/$lig_box_target/$lig_box_target.pdb $1 $2 $3 $4 $5 $6 $7 $8 $9 > $data_dir/$lig_box_target/$lig_box_template/in/tmp/template
+    mv $data_dir/$lig_box_target/$lig_box_template/in/template  $data_dir/$lig_box_target/$lig_box_template/in/template_preprune
+    grep \# $data_dir/$lig_box_target/$lig_box_template/in/tmp/template > $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_pnd
+    grep -v \# $data_dir/$lig_box_target/$lig_box_template/in/tmp/template > $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_nopnd
+    grep A $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_nopnd > $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_A
+    grep D $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_nopnd > $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_D
+    grep N $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_nopnd > $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_N
+    grep H $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_nopnd > $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_H
+    wc -l $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_A | awk '{print $1" acceptor cluster points remain"}'
+    wc -l $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_D | awk '{print $1" donor cluster points remain"}'
+    wc -l $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_N | awk '{print $1" doneptor cluster points remain"}'
+    wc -l $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_H | awk '{print $1" hydrophobic cluster points remain"}'
+    cat $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_pnd $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_A $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_D $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_N $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_H > $data_dir/$lig_box_target/$lig_box_template/in/template
+    mv $data_dir/$lig_box_target/$lig_box_template/in/acceptor.pdb  $data_dir/$lig_box_target/$lig_box_template/in/acceptor_preprune.pdb
+    mv $data_dir/$lig_box_target/$lig_box_template/in/donor.pdb  $data_dir/$lig_box_target/$lig_box_template/in/donor_preprune.pdb
+    mv $data_dir/$lig_box_target/$lig_box_template/in/doneptor.pdb  $data_dir/$lig_box_target/$lig_box_template/in/doneptor_preprune.pdb
+    mv $data_dir/$lig_box_target/$lig_box_template/in/hphob.pdb  $data_dir/$lig_box_target/$lig_box_template/in/hphob_preprune.pdb
+    mv $data_dir/$lig_box_target/$lig_box_template/in/template.pdb  $data_dir/$lig_box_target/$lig_box_template/in/template_preprune.pdb
+    $slide_dir/bin/template_to_pdb.pl $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_A > $data_dir/$lig_box_target/$lig_box_template/in/acceptor.pdb
+    $slide_dir/bin/template_to_pdb.pl $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_D > $data_dir/$lig_box_target/$lig_box_template/in/donor.pdb
+    $slide_dir/bin/template_to_pdb.pl $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_N > $data_dir/$lig_box_target/$lig_box_template/in/doneptor.pdb
+    $slide_dir/bin/template_to_pdb.pl $data_dir/$lig_box_target/$lig_box_template/in/tmp/template_H > $data_dir/$lig_box_target/$lig_box_template/in/hphob.pdb
+    $slide_dir/bin/template_to_pdb.pl $data_dir/$lig_box_target/$lig_box_template/in/template > $data_dir/$lig_box_target/$lig_box_template/in/template.pdb
+    rm -fr $data_dir/$lig_box_target/$lig_box_template/in/tmp
+    exit
+fi

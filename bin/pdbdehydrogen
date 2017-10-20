@@ -1,0 +1,28 @@
+#! /bin/sh
+# pdbdehydrogen: removes hydrogen/deuterium atoms from PDB file
+# Caution: you can't just test column 14 or you will remove
+#   metals like Rh, Cd, Pd, Nd, Gd, Md...
+#
+# example:
+#
+#  pdbdehydrogen rnase.pdb > rnase.noh.pdb
+#
+#
+# --- Mike Pique
+#     The Scripps Research Institute
+#     Department of Molecular Biology/MB4
+#     10550 North Torrey Pines Rd
+#     La Jolla, CA  92037
+#     (619) 784-9775
+#     mp@scripps.edu
+#
+
+if test $# -ne 1
+    then
+    echo "Usage: $0 target.pdb"
+    exit
+fi
+
+awk '{if(! ($1 ~ /ATOM|atom|HETATM|hetatm/ \
+	  && substr($0,13,2) ~ /[ 0-9][HhDd]/ )) print
+	  }' $*

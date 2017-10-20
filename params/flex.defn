@@ -1,0 +1,120 @@
+name		sp3-sp3
+flexible	TRUE
+definition	.3
+definition	.3
+name		sp3-sp2
+flexible	TRUE
+definition	.3
+definition	.2
+name		sp3-aromatic
+flexible	TRUE
+definition	.3
+definition	.ar
+name		sp3-n4
+flexible	TRUE
+definition	.3
+definition	N.4
+name		sp3-npl
+flexible	TRUE
+definition	.3
+definition	N.pl3
+name		sp3-n_amide
+flexible	TRUE
+definition	.3
+definition	N.am
+name		sp3-sp1
+flexible	TRUE
+definition	.3
+definition	.1 ( . )
+name		sp2-n4
+flexible	TRUE
+definition	.2
+definition	N.4
+name		acetyl-sp2
+flexible	TRUE
+definition	C.2 ( O.2 ) ( C.3 )
+definition	.2
+name		carboxyl-sp3
+flexible	TRUE
+definition	C.2 ( 2 O.co2 )
+definition	.3
+name		arom-oxygen
+flexible	TRUE
+definition	O.3
+definition	C.ar
+name		conj-oxygen
+flexible	FALSE
+definition	O.3 [ H ]
+definition	.2 [ 2 H ]
+name		arom-sulfur
+flexible	TRUE
+definition	S.3
+definition	C.ar
+name		conj-sulfur
+flexible	FALSE
+definition	S.3 [ H ]
+definition	.2 [ 2 H ]
+name		ester
+flexible	FALSE
+definition	C.2 ( O.2 )
+definition	O.3 ( . )
+name		sulfyl-ester
+flexible	FALSE
+definition	C.2 ( S.2 )
+definition	S.3 ( . )
+name		conj-hydroxyl
+flexible	TRUE
+definition	O.3 ( H )
+definition	.2
+name		conj-hydrosulfyl
+flexible	TRUE
+definition	S.3 ( H )
+definition	.2 [ 2 H ]
+name		phosph-ester
+flexible	TRUE
+definition	P.3 ( 2 O.co2 )
+definition	O.3
+name		sulfate-ester
+flexible	TRUE
+definition	S ( 4 O )
+definition	O.3
+name		sulfonate-arom
+flexible	TRUE
+definition	S ( 3 O [ * ] )
+definition	C.ar
+name		sulfonate-sp2
+flexible	FALSE
+definition	S ( 3 O [ * ] )
+definition	.2 [ 2 H ]
+name		sulfonamide
+flexible	TRUE
+definition	S ( 2 O [ * ] )
+definition	N
+name		aromatic_sulfonamide
+flexible	TRUE
+definition	S ( 2 O [ * ] ) ( C.ar )
+definition	N [ 2 H ]
+name		sulfone-sp3
+flexible	TRUE
+definition	S ( 2 O [ * ] )
+definition	.3
+name		sulfone-sp2
+flexible	TRUE
+definition	S ( 2 O [ * ] )
+definition	.2
+name		sulfone-aromatic
+flexible	TRUE
+definition	S ( 2 O [ * ] )
+definition	C.ar [ 2 H ]
+name		silicon-sp3
+flexible	TRUE
+definition	Si
+definition	.3
+name		silicon-oxygen
+flexible	TRUE
+definition	Si
+definition	O.3
+name            amide
+flexible        FALSE
+definition      N.am ( H )
+definition      C.2 ( O.2 )

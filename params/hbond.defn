@@ -1,0 +1,17 @@
+#  definition of hydrogen-bond donor and acceptors
+donor         N. ( H )
+donor         N.4 [ * ]
+acceptor      O. [ H ] [ N. ] ( * )
+acceptor      O.3 ( 1 * ) [ N. ]
+acceptor      O.co2 ( C.2 ( O.co2 ) )
+acceptor      N. [ H ] [ O. ] [ 3 . ] ( * )
+#acceptor      N. [ H ] [ N. ] [ O. ] [ 3 . ] ( * )
+# the following rule has changed, now all sp2 O's can accept
+# acceptor      O.2 [ * ]
+acceptor      O.2
+# new rules
+acceptor      O.3 ( H ) ( C )
+acceptor      O.3 [ H ] ( 2 * )
+donor         O.3 ( H ) ( C )
+acceptor      F ( C )
+acceptor      Cl ( C )
