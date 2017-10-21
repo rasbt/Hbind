@@ -35,6 +35,7 @@
 #define FATAL_ERROR 0
 #define BUILD_INTERACTIONS_TABLE 1
 #define PRINT_INTERACTIONS 2
+#define PRINT_SALTBRIDGES 3
 
 typedef struct{
   char *prot_fname;
@@ -45,6 +46,7 @@ typedef struct{
   char *water_list_fname;
   int build_interact_tbl;
   int print_interactions;
+  int print_saltbridges;
 }*cmdline_opts_pt, cmdline_opts_t;
 
 typedef struct node{
@@ -56,7 +58,7 @@ typedef struct node{
 void build_interact_tbl(features_node_pt features_head,
                         features_node_pt features_last, atom_pt atoms,
                         int num_atoms, residue_pt residues, int num_residues,
-                        const char* prot_fname, atom_pt ligand_atoms, dock_feats_pt features);
+                        const char* prot_fname, atom_pt ligand_atoms, dock_feats_pt features, print_saltbridges);
 
 int parse_cmdline(const int argc, const char **argv, cmdline_opts_pt opts);
 
@@ -146,7 +148,7 @@ int main(const int argc, const char **argv)
                        global->number_of_target_atoms,
                        global->target_residues,
                        global->number_of_target_residues,
-                       cmdline_opts.prot_fname, global->ligand->atoms, &cnode->features);
+                       cmdline_opts.prot_fname, global->ligand->atoms, &cnode->features, cmdline_opts.print_saltbridges);
   }
 
 /* Score the protein versus each ligand listed in the ligand file and
@@ -158,7 +160,7 @@ return 0;
 void build_interact_tbl(features_node_pt features_head,
                         features_node_pt features_last, atom_pt atoms,
                         int num_atoms, residue_pt residues, int num_residues,
-                        const char* prot_fname, atom_pt ligand_atoms, dock_feats_pt features)
+                        const char* prot_fname, atom_pt ligand_atoms, dock_feats_pt features, print_saltbridges)
 {
   int num_rows = 0;   /*<! Number of ligands */
   int num_cols = 0;/*<! Number of features (hbonding atoms + hphob sidechains)*/
@@ -182,6 +184,9 @@ void build_interact_tbl(features_node_pt features_head,
   int lig_idx;
   int ligh_idx;
   int targ_idx;
+
+
+
 
   fprintf(fout, "++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++\n");
   fprintf(fout, "#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein\n");
@@ -241,55 +246,57 @@ void build_interact_tbl(features_node_pt features_head,
 
   }
 
-  for(i = 0; i < features->number_of_salt_bridges; i++){
-    lig_idx = features->ligand_salt_bridge_idz[i];
-    targ_idx = features->target_salt_bridge_idz[i];
+  if(print_saltbridges){
 
-    lig_act = ligand_atoms[lig_idx].act;
-    prot_act = atoms[targ_idx].act;
+    for(i = 0; i < features->number_of_salt_bridges; i++){
+      lig_idx = features->ligand_salt_bridge_idz[i];
+      targ_idx = features->target_salt_bridge_idz[i];
 
-    if (prot_act == METAL_1 || prot_act == METAL_2 || lig_act == METAL_1 || lig_act == METAL_2)
-        fprintf(fout, "| ld_metal");
-    else
-        fprintf(fout, "| saltb   ");
+      lig_act = ligand_atoms[lig_idx].act;
+      prot_act = atoms[targ_idx].act;
 
-    fprintf(fout, "%3d %3d  %-5s   -- %-3s %3s %-3s  %6.3f  N/A    ", i+1,
-    ligand_atoms[lig_idx].atom_number, ligand_atoms[lig_idx].type_str,
-    atoms[targ_idx].residue, atoms[targ_idx].residue_num,
-    atoms[targ_idx].name, features->salt_bridge_dists[i]);
-
+      if (prot_act == METAL_1 || prot_act == METAL_2 || lig_act == METAL_1 || lig_act == METAL_2) {
+          fprintf(fout, "| ld_metal");
+        }
+      else {
+              fprintf(fout, "| saltb   ");
+        }
 
 
+      fprintf(fout, "%3d %3d  %-5s   -- %-3s %3s %-3s  %6.3f  N/A    ", i+1,
+      ligand_atoms[lig_idx].atom_number, ligand_atoms[lig_idx].type_str,
+      atoms[targ_idx].residue, atoms[targ_idx].residue_num,
+      atoms[targ_idx].name, features->salt_bridge_dists[i]);
 
-    if (lig_act == DONOR){
-        if (prot_act == ACCEPTOR || prot_act == DONEPTOR)
-            fprintf(fout, "Donor - Acceptor\n");
-        else if (prot_act == METAL_1 || prot_act == METAL_2)
-            fprintf(fout, "Metal interaction\n");
+      if (lig_act == DONOR){
+          if (prot_act == ACCEPTOR || prot_act == DONEPTOR)
+              fprintf(fout, "Donor - Acceptor\n");
+          else if (prot_act == METAL_1 || prot_act == METAL_2)
+              fprintf(fout, "Metal interaction\n");
+      }
+      else if (lig_act == ACCEPTOR){
+          if (prot_act == DONOR || prot_act == DONEPTOR)
+              fprintf(fout, "Acceptor - Donor\n");
+          else if (prot_act == METAL_1 || prot_act == METAL_2)
+              fprintf(fout, "Metal interaction\n");
+      }
+      else if (lig_act == DONEPTOR){
+          if (prot_act == ACCEPTOR)
+              fprintf(fout, "Donor - Acceptor\n");
+          else if (prot_act == DONOR)
+              fprintf(fout, "Acceptor - Donor\n");
+          else if (prot_act == METAL_1 || prot_act == METAL_2)
+              fprintf(fout, "Metal interaction\n");
+          else if (prot_act == DONEPTOR)
+              fprintf(fout, "Doneptor - Doneptor\n");
+      }
+      else if ((lig_act == METAL_1 || lig_act == METAL_2) && (prot_act == METAL_1 || prot_act == METAL_2))
+          fprintf(fout, "Metal interaction\n");
+      else
+          fprintf(fout, "N/A\n");
+
     }
-    else if (lig_act == ACCEPTOR){
-        if (prot_act == DONOR || prot_act == DONEPTOR)
-            fprintf(fout, "Acceptor - Donor\n");
-        else if (prot_act == METAL_1 || prot_act == METAL_2)
-            fprintf(fout, "Metal interaction\n");
-    }
-    else if (lig_act == DONEPTOR){
-        if (prot_act == ACCEPTOR)
-            fprintf(fout, "Donor - Acceptor\n");
-        else if (prot_act == DONOR)
-            fprintf(fout, "Acceptor - Donor\n");
-        else if (prot_act == METAL_1 || prot_act == METAL_2)
-            fprintf(fout, "Metal interaction\n");
-        else if (prot_act == DONEPTOR)
-            fprintf(fout, "Doneptor - Doneptor\n");
-    }
-    else if ((lig_act == METAL_1 || lig_act == METAL_2) && (prot_act == METAL_1 || prot_act == METAL_2))
-        fprintf(fout, "Metal interaction\n");
-    else
-        fprintf(fout, "N/A\n");
-
   }
-
 
 
 /* END: NEW STUFF FOR H-BOND Interaction Details, Sebastian Raschka Nov 23, 2016 */
@@ -322,6 +329,7 @@ int parse_cmdline(const int argc, const char **argv, cmdline_opts_pt opts)
   opts->water_list_fname = 0;
   opts->build_interact_tbl = 1;
   opts->print_interactions = 0;
+  opts->print_saltbridges = 0;
 
   /* Run the "old" school way where protein comes first and then ligand */
   if((argc == 3 || argc == 4) && argv[1][0] != '-'){
@@ -346,6 +354,8 @@ int parse_cmdline(const int argc, const char **argv, cmdline_opts_pt opts)
       "Path to protein PDB file", 0},
     { "ligand", 'l', POPT_ARG_STRING, &opts->lig_fname, 0,
       "Path to ligand mol2 file (in docked conformation)", 0},
+    { "saltbridges", 's', POPT_ARG_NONE, &opts->print_saltbridges, 0,
+      "Include saltbridges in the output", 0},
     POPT_AUTOHELP
     POPT_TABLEEND
   };
@@ -368,11 +378,15 @@ int parse_cmdline(const int argc, const char **argv, cmdline_opts_pt opts)
     case PRINT_INTERACTIONS:
       opts->print_interactions = PRINT_INTERACTIONS;
       break;
+    case PRINT_SALTBRIDGES:
+      opts->print_saltbridges = PRINT_SALTBRIDGES;
+      break;
     default:
       fprintf(stderr, "Error in processing command line arguments\n");
       return FATAL_ERROR;
     }
   }
+
 
   /* Always print the interaction table,
   not the individual interactions due to information overkill,
