@@ -1,46 +1,3 @@
-/*
- * $Source: /psa/share/repository/hbind/src/hbind/read_mol2.c,v $
- * $Revision: 1.11 $
- * $Author: toneroma $
- * $Date: 2009/06/29 18:57:23 $
- *
- * $Log: read_mol2.c,v $
- * Revision 1.11  2009/06/29 18:57:23  toneroma
- * added the ability to track molecule & conformer correctly so that the group_conformers will work properly (and so naming is consistent no matter the options set)
- *
- * Revision 1.10  2009/05/19 17:23:43  vanvoor4
- * Logic error -- forgot to set is_conf to FALSE when !conf -- Doh!
- *
- * Revision 1.9  2009/05/13 14:04:40  vanvoor4
- * Repaired bugs dealing with reduction in mirror variables in the global
- * structure.
- *
- * Revision 1.8  2009/03/19 14:52:55  vanvoor4
- * Added initial values to variables that were used later but not
- * always initialized
- *
- * Revision 1.7  2009/02/26 20:55:29  vanvoor4
- * Added dummy values to atom.residue, atom.residue_num, etc.
- * NO need to pass global to err_msg, etc
- *
- * Revision 1.6  2008/09/02 15:14:28  toneroma
- * changes to allow more atom types that start with the same letter (ie B* can be B, Be, Br, etc)
- * changes to remove unused variables
- * changes to initialize variables
- * group conformers changes
- * changes for restarting runs
- *
- * Revision 1.5  2007/10/12 16:49:42  toneroma
- * Added support for S.o type atoms (previously only accepted it if it was S.O)
- *
- * Revision 1.4  2007/10/09 21:32:20  toneroma
- * Now saving conf number so when group_conformers not selected each one will be output separately
- *
- * Revision 1.3  2007/09/28 18:33:48  toneroma
- * *** empty log message ***
- *
- */
-
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -49,8 +6,6 @@
 #include "err_handle.h"
 #include "vdwrad.h"
 #include <errno.h>
-
-/* #define TRACE  */
 
 void error_orbit(char *code)
 {

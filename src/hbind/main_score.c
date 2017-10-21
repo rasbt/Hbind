@@ -183,7 +183,7 @@ void build_interact_tbl(features_node_pt features_head,
   int ligh_idx;
   int targ_idx;
 
-  fprintf(fout, "++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++\n");
+  fprintf(fout, "++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++\n");
   fprintf(fout, "#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein\n");
   fprintf(fout, "#            |  #  type    -- RES   #  type | Dist.  Angle  Interaction\n");
   for(i = 0; i < features->number_of_hbonds; i++ ){
@@ -340,35 +340,12 @@ int parse_cmdline(const int argc, const char **argv, cmdline_opts_pt opts)
   snprintf(header, 2048, "Example: hbind -p <target>.pdb -l <ligand>.mol2\n",
            argv[0], argv[0]);
 
-  struct poptOption singleOptionsTable[] = {
-    { "ligand", 'l', POPT_ARG_STRING, &opts->lig_fname, 0,
-      "Path to ligand mol2 file (in docked conformation)", 0},
-#if 0
-/* waters aren't used at the moment */
-    { "waters", 'w', POPT_ARG_STRING, &opts->waters_fname, 0,
-      "Path to conserved waters pdb file", 0},
-#endif
-/* Commented out for distribution as it is not finished */
-    POPT_TABLEEND
-  };
-
-  struct poptOption multiOptionsTable[] = {
-#if 0
-/* waters aren't used at the moment */
-    { "water_list", '\0', POPT_ARG_STRING, &opts->water_list_fname, 0,
-      "File listing the conserved waters pdb files", 0},
-#endif
-    POPT_TABLEEND
-  };
 
   struct poptOption mainOptionsTable[] = {
     { "protein", 'p', POPT_ARG_STRING, &opts->prot_fname, 0,
-      "Path to protein PDB file or protein RAD file", 0},
-    {NULL, '\0', POPT_ARG_INCLUDE_TABLE, &singleOptionsTable, 0,
-      "Options for single target and ligand", 0},
-    {NULL, '\0', POPT_ARG_INCLUDE_TABLE, &multiOptionsTable, 0,
-      "Options for a single target and multiple ligand and side chain files",
-      0},
+      "Path to protein PDB file", 0},
+    { "ligand", 'l', POPT_ARG_STRING, &opts->lig_fname, 0,
+      "Path to ligand mol2 file (in docked conformation)", 0},
     POPT_AUTOHELP
     POPT_TABLEEND
   };
