@@ -395,102 +395,6 @@ void score_complex(global_data_pt global, dock_feats_pt features,
 	        /* NOTE: Hbonds are printed below */
         }
 
-#ifdef SCORING_WATERS
-/******************************************************************************
- * NOTE: this code has not been used for some time -- inorder to correctly
- * use it, we must handle the storing and displaying of ligand to water
- * to target hbonds
- */
-        /**********************************************************************
-         * The new scoring function has been developed, trained and tested in *
-         * absence of water molecules. Though, code below implements a preli- *
-         * inary water handling, it may make the results worse or better. To  *
-         * include water handling,  please type '#define  SCORING_WATERS'     *
-         * before the #ifdef statement below - Sameer, Jul 13, 2005           *
-         **********************************************************************/
-
-        /*****************************************************
-         * step II: check for one-water mediated interactions:
-         *
-         * If we did't find direct-interaction between i and j. We will go
-         * and check for water mediated hbond between none-NOTHING atoms
-         * 1. metal-hbond
-         * 2. normal hbond
-         ****************************************************/
-        else if(target[j].act != NOTHING && global->number_of_waters > 0
-                && ligand[i].act != NOTHING){
-
-          /* II.1  mark one-water mediated metal-hbond */
-          if(target[j].act == METAL_1 || target[j].act == METAL_2)
-            for(k = 0; !found_water_hbond && k < global->number_of_waters; k++)
-              if(water[k].state == CONSERVED
-                 && between(ligand_water_dist[i][k], MIN_HBOND_LENGTH,
-                            MAX_HBOND_LENGTH)
-                 && is_water_metal_hbond(target[j], target_water_dist[j][k])){
-                ligand_flag[i] = ONE_WATER_MEDIATED_HBOND;
-                target_flag[j] = ONE_WATER_MEDIATED_HBOND;
-                found_water_hbond = 1;
-              }
-
-          /* II.2  mark one-water mediated normal hbond */
-          for(k = 0; !found_water_hbond && k < global->number_of_waters; k++)
-            if(water[k].state == CONSERVED
-               && between(ligand_water_dist[i][k], MIN_HBOND_LENGTH,
-                          MAX_HBOND_LENGTH)
-               && between(target_water_dist[j][k], MIN_HBOND_LENGTH,
-                          MAX_HBOND_LENGTH)){
-              ligand_flag[i] = ONE_WATER_MEDIATED_HBOND;
-              target_flag[j] = ONE_WATER_MEDIATED_HBOND;
-              found_water_hbond = 1;
-            }
-
-          /*****************************************************
-           * step III:  if no one-water mediated hbond, check for two-water
-           * mediated interactions:
-           * 1. metal-hbond
-           * 2. normal hbond
-           ******************************************************/
-          /* step III.1  two-waters mediated metal-hbond*/
-          if(target[j].act == METAL_1 || target[j].act == METAL_2)
-            for(k = 0; !found_water_hbond && k < global->number_of_waters; k++)
-              /* ligand-water1 (i-k) distance ok */
-              /* NOTE1 */
-              if(water[k].state == CONSERVED
-                 && ligand_water_dist[i][k] < MAX_HBOND_LENGTH + 0.0005
-                 && ligand_water_dist[i][k] >= MIN_HBOND_LENGTH - 0.0005)
-                for(l = 0; !found_water_hbond && l < global->number_of_waters;
-                    l++)
-                  /* ligand-water1-water2-target (i-k-l-j) distance is ok */
-                  if(l != k && water[l].state == CONSERVED
-                     && water_water_hbond[k][l] == WATER_HBOND
-                     && is_water_metal_hbond(target[j], target_water_dist[j][l])
-                    ){
-                    ligand_flag[i] = TWO_WATER_MEDIATED_HBOND;
-                    target_flag[j] = TWO_WATER_MEDIATED_HBOND;
-                   found_water_hbond = 1;
-                  }
-
-          /* step III.2  two-waters mediated normal hbond*/
-          for(k = 0; !found_water_hbond && k < global->number_of_waters; k++)
-            if(water[k].state == CONSERVED &&
-               between(ligand_water_dist[i][k], MIN_HBOND_LENGTH,
-                       MAX_HBOND_LENGTH))
-              for(l=0; !found_water_hbond && l < global->number_of_waters; l++)
-                if(l != k && water[l].state == CONSERVED
-                   && water_water_hbond[k][l] == WATER_HBOND
-                   && between(target_water_dist[j][l], MIN_HBOND_LENGTH,
-                              MAX_HBOND_LENGTH)){
-                  ligand_flag[i] = TWO_WATER_MEDIATED_HBOND;
-                  target_flag[j] = TWO_WATER_MEDIATED_HBOND;
-                  found_water_hbond = 1;
-                  break;
-                }
-
-          /* NOTE1 */
-          if(ligand_water_dist[i][k] < HYDRO_DIST + 0.0005)
-            number_of_ligand_neighbors++;
-        } /*********** end of search for hbonds and salt-bridges ***********/
-#endif
 
         /***********************************************************************
          * step IV.  count hbonds newly found. Remember: current two atoms might
@@ -923,26 +827,6 @@ void score_complex(global_data_pt global, dock_feats_pt features,
   printf(" \n");
 #endif
 
-#ifdef SCORING_WATERS
-  /**********************************************************************
-   * The new scoring function has been developed, trained and tested in *
-   * absence of water molecules. Though, code below implements a preli- *
-   * inary water handling, it may make the results worse or better. To  *
-   * include water handling,  please type '#define  SCORING_WATERS'     *
-   * before the #ifdef statement below - Sameer, Jul 13, 2005           *
-   **********************************************************************/
-  for ( i = 0; i < global->number_of_waters; i++ )
-    if(ligand_water_dist[i]) free(ligand_water_dist[i]);
-  if(ligand_water_dist) free(ligand_water_dist);
-
-  for ( i = 0; i < global->number_of_waters; i++ )
-    if(target_water_dist[i]) free(target_water_dist[i]);
-  if(target_water_dist) free(target_water_dist);
-
-  for ( i = 0; i < global->number_of_waters; i++ )
-    if(water_water_hbond[i]) free(water_water_hbond[i]);
-  if(water_water_hbond) free(water_water_hbond);
-#endif
 
   features->number_of_hbonds = number_of_hbonds ;
   features->number_of_salt_bridges = number_of_salt_bridges;
