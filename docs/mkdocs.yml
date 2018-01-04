@@ -1,0 +1,29 @@
+site_name: Hbind
+site_url: http://psa-lab.github.io/hbind
+site_author: Sebastian Raschka
+site_description: Software to rigorously define intermolecular H-bonds by donor/acceptor chemistry and geometric constraints.
+
+repo_url: https://github.com/psa-lab/hbind
+
+docs_dir: sources
+site_dir: html
+theme_dir: readthedocs
+
+site_favicon: favicon.ico
+
+markdown_extensions:
+  - extra
+  - tables
+  - fenced_code
+  - mathjax
+extra_javascript:
+  - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML
+  - mathjaxhelper.js
+
+copyright: Copyright &copy; 2018 Michigan State University.<br><a href="http://www.kuhnlab.bmb.msu.edu/software/index.html">MSU Protein Structural Analysis Laboratory</a>
+
+extra_css:
+  - extra.css
+
+pages:
+- Home: index.md
