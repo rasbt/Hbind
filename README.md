@@ -31,9 +31,9 @@ in your command line terminal. Please see the "Usage" section below for more inf
 
 To execute Hbind, please navigate to its main directory from where you installed it and run the following command to identify the hydrogen bonds in a protein ligand interface:
 
-    bin/hbind_score --protein ./example_files/1AMU.pdb --ligand ./example_files/1AMU_PHE.mol2 
+    bin/hbind_score --protein ./example_files/1KPF.pdb --ligand ./example_files/1KPF_AMP.mol2 
 
-Here, 1A9X.pdb is an excerpt from the PDB structure [1AMU](https://www.rcsb.org/pdb/explore.do?structureId=1amu) (phenylalanine activating domain of gramicidin synthetase 1) with its ligand `1AMU_PHE.mol2` (phenylalanine). The two structures are provided in Hbind's subdirectory "[example_files/](./example_files)".
+Here, 1A9X.pdb is an excerpt from the PDB structure [1KPF](https://www.rcsb.org/pdb/explore.do?structureId=1kpf) (PKCI-substrate analog) with its ligand `1KPF_AMP.mol2` (adenosine monophsophate). The structures are provided in Hbind's subdirectory "[example_files/](./example_files)".
 
 ***Before you run Hbind, please make sure that you provide the protein structure in PDB format and the ligand structure in MOL2 format, and please ensure that the ligand's protonation state (hydrogen assignment) is correct.***
 
@@ -48,15 +48,19 @@ HBIND Version: 1.0.0
 ++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
 #            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
-| hbond     1   1  N.4     -- ASP  235  OD1   2.919  150.0  Donor - Acceptor
-| hbond     2   1  N.4     -- GLY  324  O     3.026  150.3  Donor - Acceptor
-| hbond     3   1  N.4     -- ILE  330  O     2.803  152.1  Donor - Acceptor
-| hbond     4   4  O.co2   -- LYS  517  NZ    3.023  165.7  Acceptor - Donor
+| hbond     1   2  O.2     -- ASN   99  ND2   2.911  174.0  Acceptor - Donor
+| hbond     2   3  O.3     -- SER  107  N     2.802  166.8  Acceptor - Donor
+| hbond     3   3  O.3     -- VAL  108  N     3.031  178.8  Acceptor - Donor
+| hbond     4   4  O.3     -- HIS  112  NE2   2.593  163.1  Acceptor - Donor
+| hbond     5   4  O.3     -- HIS  114  NE2   2.581  140.4  Acceptor - Donor
+| hbond     6  10  O.3     -- ASP   43  OD2   2.714  167.1  Donor - Acceptor
+| hbond     7  12  O.3     -- ASP   43  OD1   2.607  154.1  Donor - Acceptor
+| hbond     8  22  N.ar    -- ILE   44  N     3.156  154.9  Acceptor - Donor
 ```
 
 To include salt bridges in the listing, you can use the `--saltbridges` option as shown below:
 
-    ./bin/hbind_score --protein ./example_files/1AMU.pdb --ligand ./example_files/1AMU_PHE.mol2 --saltbridges
+    ./bin/hbind_score --protein ./example_files/1KPF.pdb --ligand ./example_files/1KPF_AMP.mol2 --saltbridges
 
 ```
 HBIND Version: 1.0.0
@@ -64,37 +68,53 @@ HBIND Version: 1.0.0
 ++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
 #            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
-| hbond     1   1  N.4     -- ASP  235  OD1   2.919  150.0  Donor - Acceptor
-| hbond     2   1  N.4     -- GLY  324  O     3.026  150.3  Donor - Acceptor
-| hbond     3   1  N.4     -- ILE  330  O     2.803  152.1  Donor - Acceptor
-| hbond     4   4  O.co2   -- LYS  517  NZ    3.023  165.7  Acceptor - Donor
-| saltb     1   1  N.4     -- ASP  235  OD2   3.163  N/A    Donor - Acceptor
+| hbond     1   2  O.2     -- ASN   99  ND2   2.911  174.0  Acceptor - Donor
+| hbond     2   3  O.3     -- SER  107  N     2.802  166.8  Acceptor - Donor
+| hbond     3   3  O.3     -- VAL  108  N     3.031  178.8  Acceptor - Donor
+| hbond     4   4  O.3     -- HIS  112  NE2   2.593  163.1  Acceptor - Donor
+| hbond     5   4  O.3     -- HIS  114  NE2   2.581  140.4  Acceptor - Donor
+| hbond     6  10  O.3     -- ASP   43  OD2   2.714  167.1  Donor - Acceptor
+| hbond     7  12  O.3     -- ASP   43  OD1   2.607  154.1  Donor - Acceptor
+| hbond     8  22  N.ar    -- ILE   44  N     3.156  154.9  Acceptor - Donor
+| saltb     1   2  O.2     -- HIS  114  NE2   4.245  N/A    Acceptor - Donor
+| saltb     2   3  O.3     -- HIS  112  NE2   3.382  N/A    Acceptor - Donor
+| saltb     3   4  O.3     -- HIS  114  ND1   4.462  N/A    Acceptor - Donor
+| saltb     4  10  O.3     -- ASP   43  OD1   3.395  N/A    Donor - Acceptor
+| saltb     5  12  O.3     -- ASP   43  OD2   3.607  N/A    Donor - Acceptor
 ```
 
 For additional information, such as the number of hydrophobic contacts or [SLIDE](http://www.kuhnlab.bmb.msu.edu/software/slide/) docking scores, provide the `--summary` flag:
 
-    ./bin/hbind_score --protein ./example_files/1AMU.pdb --ligand ./example_files/1AMU_PHE.mol2 --saltbridges --summary
+    ./bin/hbind_score --protein ./example_files/1KPF.pdb --ligand ./example_files/1KPF_AMP.mol2 --saltbridges --summary
 
 ```
 HBIND Version: 1.0.0
 
 +++++++++++++++++ Summary +++++++++++++++++++
-| Protein-Ligand Hydrophobic Contacts :    58
-| Protein-Ligand H-bonds              :     4
-| Protein-Ligand Salt-bridges         :     1
+| Protein-Ligand Hydrophobic Contacts :    39
+| Protein-Ligand H-bonds              :     8
+| Protein-Ligand Salt-bridges         :     5
 | Metal-Ligand Bonds                  :     0
-| SLIDE OrientScore                   : -7.431
-| SLIDE AffiScore (heavy atoms)       : -0.123
-| SLIDE AffiScore                     : -6.699
+| SLIDE OrientScore                   : -8.787
+| SLIDE AffiScore (heavy atoms)       : -0.102
+| SLIDE AffiScore                     : -7.557
 
 ++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
 #            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
-| hbond     1   1  N.4     -- ASP  235  OD1   2.919  150.0  Donor - Acceptor
-| hbond     2   1  N.4     -- GLY  324  O     3.026  150.3  Donor - Acceptor
-| hbond     3   1  N.4     -- ILE  330  O     2.803  152.1  Donor - Acceptor
-| hbond     4   4  O.co2   -- LYS  517  NZ    3.023  165.7  Acceptor - Donor
-| saltb     1   1  N.4     -- ASP  235  OD2   3.163  N/A    Donor - Acceptor
+| hbond     1   2  O.2     -- ASN   99  ND2   2.911  174.0  Acceptor - Donor
+| hbond     2   3  O.3     -- SER  107  N     2.802  166.8  Acceptor - Donor
+| hbond     3   3  O.3     -- VAL  108  N     3.031  178.8  Acceptor - Donor
+| hbond     4   4  O.3     -- HIS  112  NE2   2.593  163.1  Acceptor - Donor
+| hbond     5   4  O.3     -- HIS  114  NE2   2.581  140.4  Acceptor - Donor
+| hbond     6  10  O.3     -- ASP   43  OD2   2.714  167.1  Donor - Acceptor
+| hbond     7  12  O.3     -- ASP   43  OD1   2.607  154.1  Donor - Acceptor
+| hbond     8  22  N.ar    -- ILE   44  N     3.156  154.9  Acceptor - Donor
+| saltb     1   2  O.2     -- HIS  114  NE2   4.245  N/A    Acceptor - Donor
+| saltb     2   3  O.3     -- HIS  112  NE2   3.382  N/A    Acceptor - Donor
+| saltb     3   4  O.3     -- HIS  114  ND1   4.462  N/A    Acceptor - Donor
+| saltb     4  10  O.3     -- ASP   43  OD1   3.395  N/A    Donor - Acceptor
+| saltb     5  12  O.3     -- ASP   43  OD2   3.607  N/A    Donor - Acceptor
 ```
 
 <br>
