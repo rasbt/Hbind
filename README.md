@@ -151,7 +151,7 @@ Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 
 
 
-## Hydrogen-bond rules
+## Hydrogen bond rules
 
 Hbind's rules for identifying hydrogen bonds protein-ligand interfaces are based on the criteria by Ippolito et al. [1] and McDonald and Thornton [2].
 
