@@ -18,7 +18,7 @@ void write_features_line(dock_feats_pt features, char *lig_fname, FILE *fout,
   compute_scores(features);
 
   fprintf(fout,
-          "+++++++++++++++++ Summary +++++++++++++++++++\n"
+          "\n\n+++++++++++++++++ Summary +++++++++++++++++++\n"
           /* "| Buried Protein Hydrophobic Term     : %5.3f\n" */
           /* "| Hydrophobic Complementarity Term    : %5.3f\n" */
           /* "| Polar Component Term                : %5.3f\n" */

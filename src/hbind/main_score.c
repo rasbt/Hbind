@@ -101,7 +101,7 @@ int main(const int argc, const char **argv)
   }
   rv = 0;
 #endif
-  printf ( "\nHBIND Version: %s\n\n", VERSION);
+  printf ( "\nHBIND Version: %s\n", VERSION);
 
   rv = parse_cmdline(argc, argv, &cmdline_opts);
   if(rv == FATAL_ERROR) return -1;
@@ -124,7 +124,7 @@ int main(const int argc, const char **argv)
   if (cmdline_opts.lig_fname[0] == '/') 
       memmove(cmdline_opts.lig_fname, cmdline_opts.lig_fname+1, strlen(cmdline_opts.lig_fname));
 
-  printf ( "\nLigand file: %s/%s\n\n", cwd, cmdline_opts.lig_fname);
+  printf ( "Ligand file: %s/%s", cwd, cmdline_opts.lig_fname);
   
   if(rv != SUCCESS){
     fprintf(stderr, "Reading of %s: failed\n", cmdline_opts.lig_fname);
