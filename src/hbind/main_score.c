@@ -75,6 +75,7 @@ int hphob_prot_atom(int res, int type);
 int read_moved_target(char *pdb_fname, atom_pt target_atoms);
 
 char cwd[100000];
+char chainid;
 
 int main(const int argc, const char **argv)
 {
@@ -226,27 +227,31 @@ void build_interact_tbl(features_node_pt features_head,
 
 
 
-  fprintf(fout, "++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++\n");
+  fprintf(fout, "++++++++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++++++++\n");
   fprintf(fout, "#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein\n");
-  fprintf(fout, "#            |  #  type    -- RES   #  type | Dist.  Angle  Interaction\n");
+  fprintf(fout, "#            |  #  TYPE    -- RES  CH_ID  RES_NO  A_TYPE | DIST.  ANGLE  INTERACTION\n");
   for(i = 0; i < features->number_of_hbonds; i++ ){
     lig_idx = features->ligand_hbond_idz[i];
     targ_idx = features->target_hbond_idz[i];
 
     if(targ_idx >= 0){
+      chainid = (char) atoms[targ_idx].chain_id;
       if ((features->hbond_angles[i] == 0.0) && features->hbond_dists[i] <= 3.5){
-          fprintf(fout, "| metal   %3d %3d  %-5s   -- %-3s %3s %-3s "
-           " %6.3f  N/A    ", i+1,
+          fprintf(fout, "| metal   %3d %3d  %-5s   -- %-3s  %c     %-3s    %-3s "
+           "    %6.3f  N/A    ", i+1,
            ligand_atoms[lig_idx].atom_number, ligand_atoms[lig_idx].type_str,
            atoms[targ_idx].residue,
+           chainid,
            atoms[targ_idx].residue_num, atoms[targ_idx].name,
            features->hbond_dists[i]);
            }
       else{
-          fprintf(fout, "| hbond   %3d %3d  %-5s   -- %-3s %3s %-3s "
-           " %6.3f  %3.1f  ", i+1,
-           ligand_atoms[lig_idx].atom_number, ligand_atoms[lig_idx].type_str,
+          fprintf(fout, "| metal   %3d %3d  %-5s   -- %-3s  %c     %-3s    %-3s "
+           "    %6.3f  N/A    ", i+1,
+           ligand_atoms[lig_idx].atom_number, 
+           ligand_atoms[lig_idx].type_str,
            atoms[targ_idx].residue,
+           chainid,
            atoms[targ_idx].residue_num, atoms[targ_idx].name,
            features->hbond_dists[i], features->hbond_angles[i]);
 
@@ -286,6 +291,8 @@ void build_interact_tbl(features_node_pt features_head,
 
   if(print_saltbridges){
 
+    chainid = (char) atoms[targ_idx].chain_id;
+
     for(i = 0; i < features->number_of_salt_bridges; i++){
       lig_idx = features->ligand_salt_bridge_idz[i];
       targ_idx = features->target_salt_bridge_idz[i];
@@ -300,10 +307,11 @@ void build_interact_tbl(features_node_pt features_head,
               fprintf(fout, "| saltb   ");
         }
 
-
-      fprintf(fout, "%3d %3d  %-5s   -- %-3s %3s %-3s  %6.3f  N/A    ", i+1,
+      fprintf(fout, "%3d %3d  %-5s   -- %-3s  %c     %-3s    %-3s     %6.3f  N/A    ", i+1,
       ligand_atoms[lig_idx].atom_number, ligand_atoms[lig_idx].type_str,
-      atoms[targ_idx].residue, atoms[targ_idx].residue_num,
+      atoms[targ_idx].residue, 
+      chainid,
+      atoms[targ_idx].residue_num,
       atoms[targ_idx].name, features->salt_bridge_dists[i]);
 
       if (lig_act == DONOR){
