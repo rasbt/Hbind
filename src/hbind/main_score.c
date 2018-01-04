@@ -142,7 +142,10 @@ int main(const int argc, const char **argv)
     score_complex(global, &cnode->features, stdout);
   else score_complex(global, &cnode->features, 0);
 
-  write_features_line(features, cmdline_opts.lig_fname, stdout, JUST_SCORE);
+  if(cmdline_opts.print_summary){
+    write_features_line(features, cmdline_opts.lig_fname, stdout, JUST_SCORE);
+  }
+
   /* Build the target matchprints file if desired */
   if(cmdline_opts.build_interact_tbl){
     fprintf(stdout, "\n\n");
@@ -360,6 +363,8 @@ int parse_cmdline(const int argc, const char **argv, cmdline_opts_pt opts)
       "Path to ligand mol2 file (in docked conformation)", 0},
     { "saltbridges", 's', POPT_ARG_NONE, &opts->print_saltbridges, 0,
       "Include saltbridges in the output", 0},
+    { "summary", 's', POPT_ARG_NONE, &opts->print_summary, 0,
+      "Include a summary table in the output", 0},
     POPT_AUTOHELP
     POPT_TABLEEND
   };
