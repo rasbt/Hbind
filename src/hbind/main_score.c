@@ -237,8 +237,8 @@ void build_interact_tbl(features_node_pt features_head,
     if(targ_idx >= 0){
       chainid = (char) atoms[targ_idx].chain_id;
       if ((features->hbond_angles[i] == 0.0) && features->hbond_dists[i] <= 3.5){
-          fprintf(fout, "| metal   %3d %3d  %-5s   -- %-3s  %c     %-3s    %-3s "
-           "    %6.3f  N/A    ", i+1,
+          fprintf(fout, "| metal   %3d %3d  %-5s   -- %-3s %c    %-3s     %-3s "
+           " %6.3f  N/A    ", i+1,
            ligand_atoms[lig_idx].atom_number, ligand_atoms[lig_idx].type_str,
            atoms[targ_idx].residue,
            chainid,
@@ -246,8 +246,8 @@ void build_interact_tbl(features_node_pt features_head,
            features->hbond_dists[i]);
            }
       else{
-          fprintf(fout, "| metal   %3d %3d  %-5s   -- %-3s  %c     %-3s    %-3s "
-           "    %6.3f  N/A    ", i+1,
+          fprintf(fout, "| hbond   %3d %3d  %-5s   -- %-4s %c     %-4s    %-3s "
+           "    %6.3f  %3.1f  ", i+1,
            ligand_atoms[lig_idx].atom_number, 
            ligand_atoms[lig_idx].type_str,
            atoms[targ_idx].residue,
@@ -307,7 +307,8 @@ void build_interact_tbl(features_node_pt features_head,
               fprintf(fout, "| saltb   ");
         }
 
-      fprintf(fout, "%3d %3d  %-5s   -- %-3s  %c     %-3s    %-3s     %6.3f  N/A    ", i+1,
+      fprintf(fout, "%3d %3d  %-5s   -- %-4s %c     %-4s    %-3s "
+           "    %6.3f  N/A    ", i+1,
       ligand_atoms[lig_idx].atom_number, ligand_atoms[lig_idx].type_str,
       atoms[targ_idx].residue, 
       chainid,
