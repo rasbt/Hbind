@@ -29,7 +29,61 @@ in your command line terminal. Please see the "Usage" section below for more inf
 
 ## Usage
 
-in progress ... 
+To execute Hbind, please navigate to its main directory from where you installed it and run the following command to identify the hydrogen bonds in a protein ligand interface:
+
+    bin/hbind_score --protein ./example_files/1AMU.pdb --ligand ./example_files/1AMU_PHE.mol2 
+
+Here, 1A9X.pdb is an excerpt from the PDB structure [1AMU](https://www.rcsb.org/pdb/explore.do?structureId=1amu) (phenylalanine activating domain of gramicidin synthetase 1) with its ligand `1AMU_PHE.mol2` (phenylalanine). The two structures are provided in Hbind's subdirectory "[example_files/](./example_files)".
+
+***Before you run Hbind, please make sure that you provide the protein structure in PDB format and the ligand structure in MOL2 format, and please ensure that the ligand's protonation state (hydrogen assignment) is correct.***
+
+To protonate a ligand, tools such as [OpenEye MolCharge](https://docs.eyesopen.com/quacpac/molchargeusage.html) can be used. However, it is recommended to protonate a ligand in presence of its protein environment, for example, by using tools such as [What If](http://swift.cmbi.ru.nl/whatif/) or [Yasara OptHyd](http://www.yasara.org/features.htm).
+
+After running the command from the beginning of this section, the following output should be displayed:
+
+```
+HBIND Version: 1.0.0
+
++++++++++++ SLIDE Score Summary +++++++++++++
+| OrientScore                         : -7.431
+| AffiScore (heavy atoms)             : -0.123
+| AffiScore                           : -6.699
+| Buried Protein Hydrophobic Term     : -2.004
+| Hydrophobic Complementarity Term    : -0.415
+| Polar Component Term                :  0.938
+| Protein-Ligand Hydrophobic Contacts :     58
+| Protein-Ligand H-bonds              :      4
+| Protein-Ligand Salt-bridges         :      1
+| Metal-Ligand Bonds                  :      0
+| Interfacial Unsatisfied Polar Atoms :      7
+| Interfacial Unsatisfied Polar Atoms :      0
+| Buried Carbons (%)                  :    100
+
+++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
+#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
+#            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
+| hbond     1   1  N.4     -- ASP  235  OD1   2.919  150.0  Donor - Acceptor
+| hbond     2   1  N.4     -- GLY  324  O     3.026  150.3  Donor - Acceptor
+| hbond     3   1  N.4     -- ILE  330  O     2.803  152.1  Donor - Acceptor
+| hbond     4   4  O.co2   -- LYS  517  NZ    3.023  165.7  Acceptor - Donor
+```
+
+To include salt bridges in the listing, you can use the `--saltbridges` option as shown below:
+
+    ./bin/hbind_score --protein ./example_files/1AMU.pdb --ligand ./example_files/1AMU_PHE.mol2 --saltbridges
+
+```
+
+...
+++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
+#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
+#            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
+| hbond     1   1  N.4     -- ASP  235  OD1   2.919  150.0  Donor - Acceptor
+| hbond     2   1  N.4     -- GLY  324  O     3.026  150.3  Donor - Acceptor
+| hbond     3   1  N.4     -- ILE  330  O     2.803  152.1  Donor - Acceptor
+| hbond     4   4  O.co2   -- LYS  517  NZ    3.023  165.7  Acceptor - Donor
+| saltb     1   1  N.4     -- ASP  235  OD2   3.163  N/A    Donor - Acceptor
+```
 
 ## Hydrogen-bond rules
 
