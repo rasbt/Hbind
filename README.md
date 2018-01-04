@@ -1,6 +1,10 @@
+### in progress ...
+
+
 # Hbind -- Identifying hydrogen bonds by donor/acceptor chemistry and geometric constraints
 
-### in progress ...
+![](docs/hbind-logo.jpg)
+
 
 Software to rigorously define intermolecular H-bonds by donor/acceptor chemistry and geometric constraints, which was developed, used, and described in detail in 
 
@@ -8,6 +12,8 @@ Software to rigorously define intermolecular H-bonds by donor/acceptor chemistry
 "Protein-ligand interfaces are polarized: Discovery of a strong trend for intermolecular hydrogen bonds to favor donors on the protein side with implications for predicting and designing ligand complexes." J. Computer-Aided Molec. Design [in revision]
 
 Documentation: [insert link]
+
+<br>
 
 ## Installation
 
@@ -26,6 +32,8 @@ and to show a brief usage example, run
     ./bin/hbind_score --usage
 
 in your command line terminal. Please see the "Usage" section below for more information on how to use Hbind.
+
+<br>
 
 ## Usage
 
