@@ -44,20 +44,6 @@ After running the command from the beginning of this section, the following outp
 ```
 HBIND Version: 1.0.0
 
-+++++++++++++++++ Summary +++++++++++++++++++
-| Buried Protein Hydrophobic Term     : -2.004
-| Hydrophobic Complementarity Term    : -0.415
-| Polar Component Term                : 0.938
-| Protein-Ligand Hydrophobic Contacts :    58
-| Protein-Ligand H-bonds              :     4
-| Protein-Ligand Salt-bridges         :     1
-| Metal-Ligand Bonds                  :     0
-| Interfacial Unsatisfied Polar Atoms :     7
-| Interfacial Unsatisfied Polar Atoms :     0
-| Buried Carbons (%)                  :   100
-| SLIDE OrientScore                   : -7.431
-| SLIDE AffiScore (heavy atoms)       : -0.123
-| SLIDE AffiScore                     : -6.699
 
 ++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
@@ -73,8 +59,8 @@ To include salt bridges in the listing, you can use the `--saltbridges` option a
     ./bin/hbind_score --protein ./example_files/1AMU.pdb --ligand ./example_files/1AMU_PHE.mol2 --saltbridges
 
 ```
+HBIND Version: 1.0.0
 
-...
 ++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
 #            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
@@ -84,6 +70,38 @@ To include salt bridges in the listing, you can use the `--saltbridges` option a
 | hbond     4   4  O.co2   -- LYS  517  NZ    3.023  165.7  Acceptor - Donor
 | saltb     1   1  N.4     -- ASP  235  OD2   3.163  N/A    Donor - Acceptor
 ```
+
+For additional information, such as the number of hydrophobic contacts or [SLIDE](http://www.kuhnlab.bmb.msu.edu/software/slide/) docking scores, provide the `--summary` flag:
+
+    ./bin/hbind_score --protein ./example_files/1AMU.pdb --ligand ./example_files/1AMU_PHE.mol2 --saltbridges --summary
+
+```
+HBIND Version: 1.0.0
+
++++++++++++++++++ Summary +++++++++++++++++++
+| Protein-Ligand Hydrophobic Contacts :    58
+| Protein-Ligand H-bonds              :     4
+| Protein-Ligand Salt-bridges         :     1
+| Metal-Ligand Bonds                  :     0
+| SLIDE OrientScore                   : -7.431
+| SLIDE AffiScore (heavy atoms)       : -0.123
+| SLIDE AffiScore                     : -6.699
+
+++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
+#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
+#            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
+| hbond     1   1  N.4     -- ASP  235  OD1   2.919  150.0  Donor - Acceptor
+| hbond     2   1  N.4     -- GLY  324  O     3.026  150.3  Donor - Acceptor
+| hbond     3   1  N.4     -- ILE  330  O     2.803  152.1  Donor - Acceptor
+| hbond     4   4  O.co2   -- LYS  517  NZ    3.023  165.7  Acceptor - Donor
+| saltb     1   1  N.4     -- ASP  235  OD2   3.163  N/A    Donor - Acceptor
+```
+
+<br>
+<br>
+
+
+
 
 ## Hydrogen-bond rules
 
