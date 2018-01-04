@@ -44,7 +44,6 @@ After running the command from the beginning of this section, the following outp
 ```
 HBIND Version: 1.0.0
 
-
 ++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
 #            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
@@ -146,6 +145,10 @@ Additional command line options are available to list longer-range salt bridge i
 
 [1] Ippolito, Joseph A, Richard S Alexander & David W Christianson. 1990. Hydrogen bond stereo-chemistry in protein structure and function. *Journal of Molecular Biology* 215(3). 457–471.   
 [2] McDonald, Ian & Janet M Thornton. 1994. Atlas of side-chain and main-chain hydrogen bond- ing. http://www.biochem.ucl.ac.uk/bsm/atlas: Biochemistry and Molecular Biology Department, University College London.
+
+<br>
+<br>
+
 
 ## Hbind tools
 
