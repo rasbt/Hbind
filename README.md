@@ -178,7 +178,7 @@ Additional command line options are available to list longer-range salt bridge i
 
 
 [1] Ippolito, Joseph A, Richard S Alexander & David W Christianson. 1990. Hydrogen bond stereo-chemistry in protein structure and function. *Journal of Molecular Biology* 215(3). 457–471.   
-[2] McDonald, Ian & Janet M Thornton. 1994. Atlas of side-chain and main-chain hydrogen bond- ing. http://www.biochem.ucl.ac.uk/bsm/atlas: Biochemistry and Molecular Biology Department, University College London.
+[2] McDonald, Ian & Janet M Thornton. 1994. Atlas of side-chain and main-chain hydrogen bonding. http://www.biochem.ucl.ac.uk/bsm/atlas: Biochemistry and Molecular Biology Department, University College London.
 
 <br>
 <br>
