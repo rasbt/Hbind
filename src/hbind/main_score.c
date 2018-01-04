@@ -29,6 +29,7 @@
 #include "docking_features.h"
 #include "match_triangles.h"
 #include "distance_matrices.h"
+#include <unistd.h>
 #include <transform_molecule.h>
 
 #define DISPLAY_HELP_ONLY -1
@@ -73,6 +74,8 @@ int hphob_prot_atom(int res, int type);
 
 int read_moved_target(char *pdb_fname, atom_pt target_atoms);
 
+char cwd[100000];
+
 int main(const int argc, const char **argv)
 {
   int rv = 0;
@@ -100,7 +103,6 @@ int main(const int argc, const char **argv)
 #endif
   printf ( "\nHBIND Version: %s\n\n", VERSION);
 
-
   rv = parse_cmdline(argc, argv, &cmdline_opts);
   if(rv == FATAL_ERROR) return -1;
   if(rv == DISPLAY_HELP_ONLY) return 0;
@@ -113,6 +115,17 @@ int main(const int argc, const char **argv)
 
   /* Score 1 protein and 1 ligand */
   rv = load_ligand(cmdline_opts.lig_fname, global);
+  
+  getcwd(cwd, sizeof(cwd));
+
+  if (cmdline_opts.lig_fname[0] == '.') 
+      memmove(cmdline_opts.lig_fname, cmdline_opts.lig_fname+1, strlen(cmdline_opts.lig_fname));
+
+  if (cmdline_opts.lig_fname[0] == '/') 
+      memmove(cmdline_opts.lig_fname, cmdline_opts.lig_fname+1, strlen(cmdline_opts.lig_fname));
+
+  printf ( "\nLigand file: %s/%s\n\n", cwd, cmdline_opts.lig_fname);
+  
   if(rv != SUCCESS){
     fprintf(stderr, "Reading of %s: failed\n", cmdline_opts.lig_fname);
     exit(-1);
