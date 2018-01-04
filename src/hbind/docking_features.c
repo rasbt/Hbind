@@ -18,29 +18,30 @@ void write_features_line(dock_feats_pt features, char *lig_fname, FILE *fout,
   compute_scores(features);
 
   fprintf(fout,
-          "+++++++++++ SLIDE Score Summary +++++++++++++\n"
-          "| OrientScore                         : %5.3f\n"
-          "| AffiScore (heavy atoms)             : %5.3f\n"
-          "| AffiScore                           : %5.3f\n"
+          "+++++++++++++++++ Summary +++++++++++++++++++\n"
           "| Buried Protein Hydrophobic Term     : %5.3f\n"
           "| Hydrophobic Complementarity Term    : %5.3f\n"
-          "| Polar Component Term                :  %5.3f\n"
-          "| Protein-Ligand Hydrophobic Contacts :  %5.0f\n"
-          "| Protein-Ligand H-bonds              :  %5d\n"
-          "| Protein-Ligand Salt-bridges         :  %5d\n"
-          "| Metal-Ligand Bonds                  :  %5d\n"
-          "| Interfacial Unsatisfied Polar Atoms :  %5d\n"
-          "| Interfacial Unsatisfied Polar Atoms :  %5d\n"
-          "| Buried Carbons (%%)                  :  %5.0f",
-          features->orient_score,
-          features->affiefficient_score,
-          features->affi_score, features->hphob_score, features->polar_score,
+          "| Polar Component Term                : %5.3f\n"
+          "| Protein-Ligand Hydrophobic Contacts : %5.0f\n"
+          "| Protein-Ligand H-bonds              : %5d\n"
+          "| Protein-Ligand Salt-bridges         : %5d\n"
+          "| Metal-Ligand Bonds                  : %5d\n"
+          "| Interfacial Unsatisfied Polar Atoms : %5d\n"
+          "| Interfacial Unsatisfied Polar Atoms : %5d\n"
+          "| Buried Carbons (%%)                  : %5.0f\n"
+          "| SLIDE OrientScore                   : %5.3f\n"
+          "| SLIDE AffiScore (heavy atoms)       : %5.3f\n"
+          "| SLIDE AffiScore                     : %5.3f",
+          features->hphob_score, features->polar_score,
           features->unsat_polar_score, features->contact_hphob_hphob,
           features->number_of_hbonds, features->number_of_salt_bridges,
           features->number_of_metal_ligand_bonds,
           features->number_of_interfacial_unsatisfied_polar_atoms,
           features->number_of_interfacial_unsatisfied_charged_atoms,
-          features->buried_carbons*100);
+          features->buried_carbons*100,
+          features->orient_score,
+          features->affiefficient_score,
+          features->affi_score);
   if(docking)
     fprintf(fout, " %3d %5.3f\n", features->number_of_bumps,
             features->total_overlap);

@@ -44,20 +44,20 @@ After running the command from the beginning of this section, the following outp
 ```
 HBIND Version: 1.0.0
 
-+++++++++++ SLIDE Score Summary +++++++++++++
-| OrientScore                         : -7.431
-| AffiScore (heavy atoms)             : -0.123
-| AffiScore                           : -6.699
++++++++++++++++++ Summary +++++++++++++++++++
 | Buried Protein Hydrophobic Term     : -2.004
 | Hydrophobic Complementarity Term    : -0.415
-| Polar Component Term                :  0.938
-| Protein-Ligand Hydrophobic Contacts :     58
-| Protein-Ligand H-bonds              :      4
-| Protein-Ligand Salt-bridges         :      1
-| Metal-Ligand Bonds                  :      0
-| Interfacial Unsatisfied Polar Atoms :      7
-| Interfacial Unsatisfied Polar Atoms :      0
-| Buried Carbons (%)                  :    100
+| Polar Component Term                : 0.938
+| Protein-Ligand Hydrophobic Contacts :    58
+| Protein-Ligand H-bonds              :     4
+| Protein-Ligand Salt-bridges         :     1
+| Metal-Ligand Bonds                  :     0
+| Interfacial Unsatisfied Polar Atoms :     7
+| Interfacial Unsatisfied Polar Atoms :     0
+| Buried Carbons (%)                  :   100
+| SLIDE OrientScore                   : -7.431
+| SLIDE AffiScore (heavy atoms)       : -0.123
+| SLIDE AffiScore                     : -6.699
 
 ++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
