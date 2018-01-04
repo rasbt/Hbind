@@ -39,7 +39,8 @@ in your command line terminal. Please see the "Usage" section below for more inf
 
 To execute Hbind, please navigate to its main directory from where you installed it and run the following command to identify the hydrogen bonds in a protein ligand interface:
 
-    bin/hbind_score --protein ./example_files/1KPF.pdb --ligand ./example_files/1KPF_AMP.mol2 
+    bin/hbind_score --protein ./example_files/1KPF.pdb \
+    --ligand ./example_files/1KPF_AMP.mol2 
 
 Here, 1A9X.pdb is an excerpt from the PDB structure [1KPF](https://www.rcsb.org/pdb/explore.do?structureId=1kpf) (PKCI-substrate analog) with its ligand `1KPF_AMP.mol2` (adenosine monophsophate). The structures are provided in Hbind's subdirectory "[example_files/](./example_files)".
 
@@ -74,7 +75,9 @@ Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 
 To include salt bridges in the listing, you can use the `--saltbridges` option as shown below:
 
-    ./bin/hbind_score --protein ./example_files/1KPF.pdb --ligand ./example_files/1KPF_AMP.mol2 --saltbridges
+    ./bin/hbind_score --protein ./example_files/1KPF.pdb \
+    --ligand ./example_files/1KPF_AMP.mol2 \
+    --saltbridges
 
 ```
 HBIND Version: 1.0.0
@@ -106,7 +109,9 @@ Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 
 For additional information, such as the number of hydrophobic contacts or [SLIDE](http://www.kuhnlab.bmb.msu.edu/software/slide/) docking scores, provide the `--summary` flag:
 
-    ./bin/hbind_score --protein ./example_files/1KPF.pdb --ligand ./example_files/1KPF_AMP.mol2 --saltbridges --summary
+    ./bin/hbind_score --protein ./example_files/1KPF.pdb \
+    --ligand ./example_files/1KPF_AMP.mol2 \
+    --saltbridges --summary
 
 ```
 HBIND Version: 1.0.0
