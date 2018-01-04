@@ -52,6 +52,9 @@ After running the command from the beginning of this section, the following outp
 ```
 HBIND Version: 1.0.0
 
+Ligand file: /Users/sebastian/code/hbind/example_files/1KPF_AMP.mol2
+Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
+
 ++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
 #            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
@@ -71,6 +74,9 @@ To include salt bridges in the listing, you can use the `--saltbridges` option a
 
 ```
 HBIND Version: 1.0.0
+
+Ligand file: /Users/sebastian/code/hbind/example_files/1KPF_AMP.mol2
+Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 
 ++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
@@ -96,6 +102,9 @@ For additional information, such as the number of hydrophobic contacts or [SLIDE
 
 ```
 HBIND Version: 1.0.0
+
+Ligand file: /Users/sebastian/code/hbind/example_files/1KPF_AMP.mol2
+Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 
 +++++++++++++++++ Summary +++++++++++++++++++
 | Protein-Ligand Hydrophobic Contacts :    39

@@ -101,7 +101,7 @@ int main(const int argc, const char **argv)
   }
   rv = 0;
 #endif
-  printf ( "\nHBIND Version: %s\n", VERSION);
+  printf ( "\nHBIND Version: %s\n\n", VERSION);
 
   rv = parse_cmdline(argc, argv, &cmdline_opts);
   if(rv == FATAL_ERROR) return -1;
@@ -151,6 +151,20 @@ int main(const int argc, const char **argv)
   features_last->next = 0;
   init_features(&cnode->features);
   init_features(&global->best_orientation);
+
+
+  getcwd(cwd, sizeof(cwd));
+
+  if (cmdline_opts.prot_fname[0] == '.') 
+      memmove(cmdline_opts.prot_fname, cmdline_opts.prot_fname+1, strlen(cmdline_opts.prot_fname));
+
+  if (cmdline_opts.prot_fname[0] == '/') 
+      memmove(cmdline_opts.prot_fname, cmdline_opts.prot_fname+1, strlen(cmdline_opts.prot_fname));
+
+  printf ( "\nProtein file: %s/%s", cwd, cmdline_opts.prot_fname);
+
+
+
   if(cmdline_opts.print_interactions)
     score_complex(global, &cnode->features, stdout);
   else score_complex(global, &cnode->features, 0);
@@ -159,8 +173,12 @@ int main(const int argc, const char **argv)
     write_features_line(features, cmdline_opts.lig_fname, stdout, JUST_SCORE);
   }
 
+
+
   /* Build the target matchprints file if desired */
   if(cmdline_opts.build_interact_tbl){
+
+
     fprintf(stdout, "\n\n");
     build_interact_tbl(features_head, features_last, global->target_atoms,
                        global->number_of_target_atoms,
