@@ -36,6 +36,7 @@
 #define BUILD_INTERACTIONS_TABLE 1
 #define PRINT_INTERACTIONS 2
 #define PRINT_SALTBRIDGES 3
+#define PRINT_SUMMARY 4
 
 typedef struct{
   char *prot_fname;
@@ -47,6 +48,7 @@ typedef struct{
   int build_interact_tbl;
   int print_interactions;
   int print_saltbridges;
+  int print_summary;
 }*cmdline_opts_pt, cmdline_opts_t;
 
 typedef struct node{
@@ -148,7 +150,8 @@ int main(const int argc, const char **argv)
                        global->number_of_target_atoms,
                        global->target_residues,
                        global->number_of_target_residues,
-                       cmdline_opts.prot_fname, global->ligand->atoms, &cnode->features, cmdline_opts.print_saltbridges);
+                       cmdline_opts.prot_fname, global->ligand->atoms, &cnode->features, 
+                       cmdline_opts.print_saltbridges);
   }
 
 /* Score the protein versus each ligand listed in the ligand file and
@@ -160,7 +163,8 @@ return 0;
 void build_interact_tbl(features_node_pt features_head,
                         features_node_pt features_last, atom_pt atoms,
                         int num_atoms, residue_pt residues, int num_residues,
-                        const char* prot_fname, atom_pt ligand_atoms, dock_feats_pt features, print_saltbridges)
+                        const char* prot_fname, atom_pt ligand_atoms, 
+                        dock_feats_pt features, print_saltbridges)
 {
   int num_rows = 0;   /*<! Number of ligands */
   int num_cols = 0;/*<! Number of features (hbonding atoms + hphob sidechains)*/
