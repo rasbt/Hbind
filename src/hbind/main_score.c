@@ -102,7 +102,11 @@ int main(const int argc, const char **argv)
   }
   rv = 0;
 #endif
-  printf ( "\nHBIND Version: %s\n\n", VERSION);
+  printf ( "\nHBIND Version: %s\n", VERSION);
+  printf ( "\nDocumentation: http://psa-lab.github.io/hbind\n");
+  printf ( "Raschka, Wolf, Bemister-Buffington, Kuhn (2018)\n");
+  printf ( "Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)\n\n");
+
 
   rv = parse_cmdline(argc, argv, &cmdline_opts);
   if(rv == FATAL_ERROR) return -1;

@@ -52,20 +52,24 @@ After running the command from the beginning of this section, the following outp
 ```
 HBIND Version: 1.0.0
 
+Documentation: http://psa-lab.github.io/hbind
+Raschka, Wolf, Bemister-Buffington, Kuhn (2018)
+Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)
+
 Ligand file: /Users/sebastian/code/hbind/example_files/1KPF_AMP.mol2
 Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 
-++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
-#            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
-| hbond     1   2  O.2     -- ASN   99  ND2   2.911  174.0  Acceptor - Donor
-| hbond     2   3  O.3     -- SER  107  N     2.802  166.8  Acceptor - Donor
-| hbond     3   3  O.3     -- VAL  108  N     3.031  178.8  Acceptor - Donor
-| hbond     4   4  O.3     -- HIS  112  NE2   2.593  163.1  Acceptor - Donor
-| hbond     5   4  O.3     -- HIS  114  NE2   2.581  140.4  Acceptor - Donor
-| hbond     6  10  O.3     -- ASP   43  OD2   2.714  167.1  Donor - Acceptor
-| hbond     7  12  O.3     -- ASP   43  OD1   2.607  154.1  Donor - Acceptor
-| hbond     8  22  N.ar    -- ILE   44  N     3.156  154.9  Acceptor - Donor
+#            |  #  TYPE    -- RES  CH_ID  RES_NO  A_TYPE | DIST.  ANGLE  INTERACTION
+| hbond     1   2  O.2     -- ASN  A       99     ND2      2.911  174.0  Acceptor - Donor
+| hbond     2   3  O.3     -- SER  A      107     N        2.802  166.8  Acceptor - Donor
+| hbond     3   3  O.3     -- VAL  A      108     N        3.031  178.8  Acceptor - Donor
+| hbond     4   4  O.3     -- HIS  A      112     NE2      2.593  163.1  Acceptor - Donor
+| hbond     5   4  O.3     -- HIS  A      114     NE2      2.581  140.4  Acceptor - Donor
+| hbond     6  10  O.3     -- ASP  A       43     OD2      2.714  167.1  Donor - Acceptor
+| hbond     7  12  O.3     -- ASP  A       43     OD1      2.607  154.1  Donor - Acceptor
+| hbond     8  22  N.ar    -- ILE  A       44     N        3.156  154.9  Acceptor - Donor
 ```
 
 To include salt bridges in the listing, you can use the `--saltbridges` option as shown below:
@@ -75,25 +79,29 @@ To include salt bridges in the listing, you can use the `--saltbridges` option a
 ```
 HBIND Version: 1.0.0
 
+Documentation: http://psa-lab.github.io/hbind
+Raschka, Wolf, Bemister-Buffington, Kuhn (2018)
+Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)
+
 Ligand file: /Users/sebastian/code/hbind/example_files/1KPF_AMP.mol2
 Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 
-++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
-#            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
-| hbond     1   2  O.2     -- ASN   99  ND2   2.911  174.0  Acceptor - Donor
-| hbond     2   3  O.3     -- SER  107  N     2.802  166.8  Acceptor - Donor
-| hbond     3   3  O.3     -- VAL  108  N     3.031  178.8  Acceptor - Donor
-| hbond     4   4  O.3     -- HIS  112  NE2   2.593  163.1  Acceptor - Donor
-| hbond     5   4  O.3     -- HIS  114  NE2   2.581  140.4  Acceptor - Donor
-| hbond     6  10  O.3     -- ASP   43  OD2   2.714  167.1  Donor - Acceptor
-| hbond     7  12  O.3     -- ASP   43  OD1   2.607  154.1  Donor - Acceptor
-| hbond     8  22  N.ar    -- ILE   44  N     3.156  154.9  Acceptor - Donor
-| saltb     1   2  O.2     -- HIS  114  NE2   4.245  N/A    Acceptor - Donor
-| saltb     2   3  O.3     -- HIS  112  NE2   3.382  N/A    Acceptor - Donor
-| saltb     3   4  O.3     -- HIS  114  ND1   4.462  N/A    Acceptor - Donor
-| saltb     4  10  O.3     -- ASP   43  OD1   3.395  N/A    Donor - Acceptor
-| saltb     5  12  O.3     -- ASP   43  OD2   3.607  N/A    Donor - Acceptor
+#            |  #  TYPE    -- RES  CH_ID  RES_NO  A_TYPE | DIST.  ANGLE  INTERACTION
+| hbond     1   2  O.2     -- ASN  A       99     ND2      2.911  174.0  Acceptor - Donor
+| hbond     2   3  O.3     -- SER  A      107     N        2.802  166.8  Acceptor - Donor
+| hbond     3   3  O.3     -- VAL  A      108     N        3.031  178.8  Acceptor - Donor
+| hbond     4   4  O.3     -- HIS  A      112     NE2      2.593  163.1  Acceptor - Donor
+| hbond     5   4  O.3     -- HIS  A      114     NE2      2.581  140.4  Acceptor - Donor
+| hbond     6  10  O.3     -- ASP  A       43     OD2      2.714  167.1  Donor - Acceptor
+| hbond     7  12  O.3     -- ASP  A       43     OD1      2.607  154.1  Donor - Acceptor
+| hbond     8  22  N.ar    -- ILE  A       44     N        3.156  154.9  Acceptor - Donor
+| saltb     1   2  O.2     -- HIS  A      114     NE2      4.245  N/A    Acceptor - Donor
+| saltb     2   3  O.3     -- HIS  A      112     NE2      3.382  N/A    Acceptor - Donor
+| saltb     3   4  O.3     -- HIS  A      114     ND1      4.462  N/A    Acceptor - Donor
+| saltb     4  10  O.3     -- ASP  A       43     OD1      3.395  N/A    Donor - Acceptor
+| saltb     5  12  O.3     -- ASP  A       43     OD2      3.607  N/A    Donor - Acceptor
 ```
 
 For additional information, such as the number of hydrophobic contacts or [SLIDE](http://www.kuhnlab.bmb.msu.edu/software/slide/) docking scores, provide the `--summary` flag:
@@ -102,6 +110,10 @@ For additional information, such as the number of hydrophobic contacts or [SLIDE
 
 ```
 HBIND Version: 1.0.0
+
+Documentation: http://psa-lab.github.io/hbind
+Raschka, Wolf, Bemister-Buffington, Kuhn (2018)
+Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)
 
 Ligand file: /Users/sebastian/code/hbind/example_files/1KPF_AMP.mol2
 Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
@@ -115,22 +127,22 @@ Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 | SLIDE AffiScore (heavy atoms)       : -0.102
 | SLIDE AffiScore                     : -7.557
 
-++++++++++++++++++++++++++ HBind Interaction Table +++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++++++++
 #            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
-#            |  #  type    -- RES   #  type | Dist.  Angle  Interaction
-| hbond     1   2  O.2     -- ASN   99  ND2   2.911  174.0  Acceptor - Donor
-| hbond     2   3  O.3     -- SER  107  N     2.802  166.8  Acceptor - Donor
-| hbond     3   3  O.3     -- VAL  108  N     3.031  178.8  Acceptor - Donor
-| hbond     4   4  O.3     -- HIS  112  NE2   2.593  163.1  Acceptor - Donor
-| hbond     5   4  O.3     -- HIS  114  NE2   2.581  140.4  Acceptor - Donor
-| hbond     6  10  O.3     -- ASP   43  OD2   2.714  167.1  Donor - Acceptor
-| hbond     7  12  O.3     -- ASP   43  OD1   2.607  154.1  Donor - Acceptor
-| hbond     8  22  N.ar    -- ILE   44  N     3.156  154.9  Acceptor - Donor
-| saltb     1   2  O.2     -- HIS  114  NE2   4.245  N/A    Acceptor - Donor
-| saltb     2   3  O.3     -- HIS  112  NE2   3.382  N/A    Acceptor - Donor
-| saltb     3   4  O.3     -- HIS  114  ND1   4.462  N/A    Acceptor - Donor
-| saltb     4  10  O.3     -- ASP   43  OD1   3.395  N/A    Donor - Acceptor
-| saltb     5  12  O.3     -- ASP   43  OD2   3.607  N/A    Donor - Acceptor
+#            |  #  TYPE    -- RES  CH_ID  RES_NO  A_TYPE | DIST.  ANGLE  INTERACTION
+| hbond     1   2  O.2     -- ASN  A       99     ND2      2.911  174.0  Acceptor - Donor
+| hbond     2   3  O.3     -- SER  A      107     N        2.802  166.8  Acceptor - Donor
+| hbond     3   3  O.3     -- VAL  A      108     N        3.031  178.8  Acceptor - Donor
+| hbond     4   4  O.3     -- HIS  A      112     NE2      2.593  163.1  Acceptor - Donor
+| hbond     5   4  O.3     -- HIS  A      114     NE2      2.581  140.4  Acceptor - Donor
+| hbond     6  10  O.3     -- ASP  A       43     OD2      2.714  167.1  Donor - Acceptor
+| hbond     7  12  O.3     -- ASP  A       43     OD1      2.607  154.1  Donor - Acceptor
+| hbond     8  22  N.ar    -- ILE  A       44     N        3.156  154.9  Acceptor - Donor
+| saltb     1   2  O.2     -- HIS  A      114     NE2      4.245  N/A    Acceptor - Donor
+| saltb     2   3  O.3     -- HIS  A      112     NE2      3.382  N/A    Acceptor - Donor
+| saltb     3   4  O.3     -- HIS  A      114     ND1      4.462  N/A    Acceptor - Donor
+| saltb     4  10  O.3     -- ASP  A       43     OD1      3.395  N/A    Donor - Acceptor
+| saltb     5  12  O.3     -- ASP  A       43     OD2      3.607  N/A    Donor - Acceptor
 ```
 
 <br>
