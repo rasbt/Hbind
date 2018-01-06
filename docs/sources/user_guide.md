@@ -1,48 +1,11 @@
-### in progress ...
-
-
-# Hbind -- Identifying hydrogen bonds by donor/acceptor chemistry and geometric constraints
-
-![](docs/sources/images/hbind-logo.jpg)
-
-
-Software to rigorously define intermolecular H-bonds by donor/acceptor chemistry and geometric constraints, which was developed, used, and described in detail in 
-
-- Sebastian Raschka, Wolf A., Bemister-Buffington J., and Kuhn L.A. (2018) 
-"Protein-ligand interfaces are polarized: Discovery of a strong trend for intermolecular hydrogen bonds to favor donors on the protein side with implications for predicting and designing ligand complexes." J. Computer-Aided Molec. Design [in revision]
-
-Documentation: [insert link]
-
-<br>
-
-## Installation
-
-Installing Hbind requires [Perl](https://www.perl.org) and the [GCC](https://gcc.gnu.org) compiler, both of which come pre-installed with most Unix- and Linux-based operating systems.
-
-To install Hbind, simply download this repository, unpack it, and navigate into the main Hbind folder. Then, execute the following command in your terminal:
-
-    perl install_hbind.pl
-
-Upon successful installation, the hbind software will be ready to use from the `bin/` subdirectory. To show the help menu execute
-
-    ./bin/hbind_score --help
-
-and to show a brief usage example, run
-
-    ./bin/hbind_score --usage
-
-in your command line terminal. Please see the "Usage" section below for more information on how to use Hbind.
-
-<br>
-
-## Usage
+## User Guide
 
 To execute Hbind, please navigate to its main directory from where you installed it and run the following command to identify the hydrogen bonds in a protein ligand interface:
 
     bin/hbind_score --protein ./example_files/1KPF.pdb \
     --ligand ./example_files/1KPF_AMP.mol2 
 
-Here, 1A9X.pdb is an excerpt from the PDB structure [1KPF](https://www.rcsb.org/pdb/explore.do?structureId=1kpf) (PKCI-substrate analog) with its ligand `1KPF_AMP.mol2` (adenosine monophsophate). The structures are provided in Hbind's subdirectory "[example_files/](./example_files)".
+Here, 1A9X.pdb is an excerpt from the PDB structure [1KPF](https://www.rcsb.org/pdb/explore.do?structureId=1kpf) (PKCI-substrate analog) with its ligand `1KPF_AMP.mol2` (adenosine monophsophate). The structures are provided in Hbind's subdirectory "[example_files/](https://github.com/rasbt/Hbind/tree/master/example_files)".
 
 ***Before you run Hbind, please make sure that you provide the protein structure in PDB format and the ligand structure in MOL2 format, and please ensure that the ligand's protonation state (hydrogen assignment) is correct.***
 
@@ -182,19 +145,3 @@ Additional command line options are available to list longer-range salt bridge i
 
 <br>
 <br>
-
-
-## Hbind tools
-
-###  Protein Recognition Index (PRI) 
-
-Software for assessing the native-likeness of designed or predicted protein-ligand interfaces, which can be used to guide protein mutagenesis and ligand design.
-
-- [Link]
-
-### Hbind Interaction Viz [insert link]
-
-A program for creating PyMOL H-bond interaction views from Hbind tables.
-
-- [Link]
-

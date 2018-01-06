@@ -27,3 +27,11 @@ extra_css:
 
 pages:
 - Home: index.md
+- Installation: installation.md
+- User Guide: user_guide.md
+- Hbind Tools: hbind_tools.md
+- About:
+  - Contact: contact.md
+  - Release Notes: changelog.md
+  - License: license.md
+  - Citing Hbind: cite.md
