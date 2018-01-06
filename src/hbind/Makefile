@@ -72,19 +72,19 @@ OBJS =	debug_funs.o \
 	write_log_file.o \
 	write_ligand_mol2.o  \
 	docking_features.o \
-        match_triangles.o
+    match_triangles.o
 
 
 
-$(BINPATH)/$(EXENAME)_score: $(OBJS) main_score.o
-	$(CC) $(COPTS) -o $(BINPATH)/$(EXENAME)_score $(OBJS) main_score.o \
+$(BINPATH)/$(EXENAME): $(OBJS) main_hbind.o
+	$(CC) $(COPTS) -o $(BINPATH)/$(EXENAME) $(OBJS) main_hbind.o \
 	$(LIBS) -lpopt
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -f *.o *.gcda *.gcno $(BINPATH)/$(EXENAME) $(BINPATH)/$(EXENAME)_score
+	rm -f *.o *.gcda *.gcno $(BINPATH)/$(EXENAME) $(BINPATH)/$(EXENAME)_hbind
 
 touch:
 	touch *.c

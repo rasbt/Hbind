@@ -29,6 +29,7 @@ unlink "./src/hbind/write_log_file.o";
 unlink "./src/hbind/read_pdb.o";
 unlink "./src/hbind/compute_target_angles.o";
 unlink "./src/hbind/main_score.o";
+unlink "./src/hbind/hbind_score.o";
 unlink "./src/hbind/analyze_ligand.o";
 unlink "./src/hbind/write_waters_pdb.o";
 unlink "./src/hbind/number_ligand_atoms.o";

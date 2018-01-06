@@ -8,10 +8,10 @@ To install Hbind, simply download this repository, unpack it, and navigate into 
 
 Upon successful installation, the hbind software will be ready to use from the `bin/` subdirectory. To show the help menu execute
 
-    ./bin/hbind_score --help
+    ./bin/hbind --help
 
 and to show a brief usage example, run
 
-    ./bin/hbind_score --usage
+    ./bin/hbind --usage
 
 in your command line terminal. Please see the "[User Guide](user_guide.md)" section for more information on how to use Hbind.
