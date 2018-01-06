@@ -1,4 +1,4 @@
-![](images/hbind-logo.jpg)
+![](images/hbind-logo.png)
 
 
 Software to rigorously define intermolecular H-bonds by donor/acceptor chemistry and geometric constraints, which was developed, used, and described in detail in 

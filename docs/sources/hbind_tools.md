@@ -7,7 +7,9 @@ Software for assessing the native-likeness of designed or predicted protein-liga
 
 - [Link]
 
-### Hbind Interaction Viz [insert link]
+### Hbind Interaction Viz
+
+![](images/hbind-viz-logo.png)
 
 A program for creating PyMOL H-bond interaction views from Hbind tables.
 

@@ -3,7 +3,7 @@
 
 # Hbind -- Identifying hydrogen bonds by donor/acceptor chemistry and geometric constraints
 
-![](docs/sources/images/hbind-logo.jpg)
+![](docs/sources/images/hbind-logo.png)
 
 
 Software to rigorously define intermolecular H-bonds by donor/acceptor chemistry and geometric constraints, which was developed, used, and described in detail in 
