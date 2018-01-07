@@ -181,7 +181,7 @@ END OF TERMS AND CONDITIONS
 
 Copyright 2018 Michigan State University
 
-The Hbindsoftware was developed by Sebastian Raschka
+The Hbind software was developed by Sebastian Raschka
 and Leslie A. Kuhn in the Protein Structure Lab 
 (http://www.kuhnlab.bmb.msu.edu) at Michigan State University.
 

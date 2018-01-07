@@ -1,6 +1,3 @@
-### in progress ...
-
-
 # Hbind -- Identifying hydrogen bonds by donor/acceptor chemistry and geometric constraints
 
 ![](docs/sources/images/hbind-logo.png)
@@ -13,6 +10,21 @@ Software to rigorously define intermolecular H-bonds by donor/acceptor chemistry
 
 Documentation: [insert link]
 
+<br>
+<br>
+<br>
+
+---
+
+![](docs/sources/images/1kpf_interact.png)
+
+[Interactions between an PKCI-substrate analog ([1KPF](https://www.rcsb.org/pdb/explore.do?structureId=1kpf))  with its ligand (adenosine monophsophate) via [HbindViz](https://github.com/rasbt/HbindViz) and [PyMOL](https://pymol.org); hydrogen atoms not shown]
+
+---
+
+
+<br>
+<br>
 <br>
 
 ## Installation
