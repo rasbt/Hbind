@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
-#include <popt.h>
+#include "popt.h"
 #include "defs.h"
 #include "types.h"
 #include <basics.h>
