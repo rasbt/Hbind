@@ -20,7 +20,8 @@ extra_javascript:
   - https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML
   - mathjaxhelper.js
 
-copyright: Copyright &copy; 2018 Michigan State University.<br><a href="http://www.kuhnlab.bmb.msu.edu/software/index.html">MSU Protein Structural Analysis Laboratory</a>
+copyright: Copyright &copy; 2018 Michigan State University. Developed in the <a href="http://www.kuhnlab.bmb.msu.edu">PSA Lab</a>.<br><em><a href="cite">Sebastian Raschka et al. 2018</a></em>.
+
 
 extra_css:
   - extra.css
