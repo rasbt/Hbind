@@ -215,11 +215,11 @@ Additional command line options are available to list longer-range salt bridge i
 
 Software for assessing the native-likeness of designed or predicted protein-ligand interfaces, which can be used to guide protein mutagenesis and ligand design.
 
-- [Link]
+- [https://psa-lab.github.io/protein-recognition-index/](https://psa-lab.github.io/protein-recognition-index/)
 
-### Hbind Interaction Viz [insert link]
+### Hbind Interaction Viz
 
 A program for creating PyMOL H-bond interaction views from Hbind tables.
 
-- [Link]
+- [http://psa-lab.github.io/HbindViz](http://psa-lab.github.io/HbindViz)
 
