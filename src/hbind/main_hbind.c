@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
-#include "popt.h"
 #include "defs.h"
 #include "types.h"
 #include <basics.h>
@@ -34,23 +33,7 @@
 
 #define DISPLAY_HELP_ONLY -1
 #define FATAL_ERROR 0
-#define BUILD_INTERACTIONS_TABLE 1
-#define PRINT_INTERACTIONS 2
-#define PRINT_SALTBRIDGES 3
-#define PRINT_SUMMARY 4
 
-typedef struct{
-  char *prot_fname;
-  char *sc_fname;
-  char *lig_fname;
-  char *waters_fname;
-  char *lig_list_fname;
-  char *water_list_fname;
-  int build_interact_tbl;
-  int print_interactions;
-  int print_saltbridges;
-  int print_summary;
-}*cmdline_opts_pt, cmdline_opts_t;
 
 typedef struct node{
   dock_feats_t features;
@@ -61,9 +44,7 @@ typedef struct node{
 void build_interact_tbl(features_node_pt features_head,
                         features_node_pt features_last, atom_pt atoms,
                         int num_atoms, residue_pt residues, int num_residues,
-                        const char* prot_fname, atom_pt ligand_atoms, dock_feats_pt features, print_saltbridges);
-
-int parse_cmdline(const int argc, const char **argv, cmdline_opts_pt opts);
+                        const char* prot_fname, atom_pt ligand_atoms, dock_feats_pt features, int print_saltbridges);
 
 int load_ligand(char *filename, global_data_pt global);
 
@@ -77,13 +58,39 @@ int read_moved_target(char *pdb_fname, atom_pt target_atoms);
 char cwd[100000];
 char chainid;
 
+
+
+
+void display_usage( void )
+  {
+      printf( "\nUSAGE:\n");
+      printf( "-p STRING     Path to protein PDB file\n" );
+      printf( "-l STRING     Path to ligand mol2 file (in docked conformation)\n" );
+      printf( "-s            Include saltbridges in the output\n" );
+      printf( "-t            Include a summary table in the output\n" );
+
+      exit( EXIT_FAILURE );
+  }
+
+int global_arg_print_saltbridges;      /* -s option */
+int global_arg_print_summary;          /* -t option */
+char *global_arg_prot_path;            /* -p option */
+char *global_arg_lig_path;             /* -l option */
+int global_arg_print_interactions;     /* now always on */
+
+ 
+static const char *optString = "p:l:sth?";
+
+
 int main(const int argc, const char **argv)
 {
+
   int rv = 0;
   int USE_TARGET_FILES;
   dock_feats_pt features;
   global_data_pt global;
-  cmdline_opts_t cmdline_opts;
+
+  global_arg_print_interactions = 1;
 
   FILE *lig_list_fp;
   char lig_fname[FILENAME_MAX];
@@ -102,39 +109,81 @@ int main(const int argc, const char **argv)
   }
   rv = 0;
 #endif
+  
+
   printf ( "\nHBIND Version: %s\n", VERSION);
   printf ( "\nDocumentation: http://psa-lab.github.io/hbind\n");
   printf ( "Raschka, Wolf, Bemister-Buffington, Kuhn (2018)\n");
   printf ( "Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)\n\n");
 
 
-  rv = parse_cmdline(argc, argv, &cmdline_opts);
-  if(rv == FATAL_ERROR) return -1;
-  if(rv == DISPLAY_HELP_ONLY) return 0;
+
+  int getopt( int argc, char *const argv[], const char *optstring );
+
+    int opt = 0;
+    /* Initialize globalArgs before we get to work. */
+    global_arg_print_saltbridges = 0;     /* false */
+    global_arg_print_summary = 0;     /* false */
+    global_arg_prot_path = NULL;
+    global_arg_lig_path = NULL;
+
+
+  opt = getopt( argc, argv, optString );
+  while( opt != -1 ) {
+    switch( opt ) {
+      case 's':
+        global_arg_print_saltbridges = 1; 
+        break;
+
+      case 't':
+        global_arg_print_summary = 1; 
+        break;
+        
+      case 'l':
+        global_arg_lig_path = optarg;
+        break;
+        
+      case 'p':
+        global_arg_prot_path = optarg;
+        break;
+        
+      case 'h':
+      case '?':
+        display_usage();
+        break;
+        
+      default:
+        break;
+    }
+    
+    opt = getopt( argc, argv, optString );
+  }
 
   global = initialize_global_data_structure();
-  read_pdb(cmdline_opts.prot_fname, global->target_atoms,
-           global->target_residues, ALSO_HETERO,
-           &global->number_of_target_atoms, &global->number_of_target_residues);
+  read_pdb( global_arg_prot_path, global->target_atoms,
+            global->target_residues, ALSO_HETERO,
+            &global->number_of_target_atoms, &global->number_of_target_residues);
   set_global_junk(global);
 
   /* Score 1 protein and 1 ligand */
-  rv = load_ligand(cmdline_opts.lig_fname, global);
+  rv = load_ligand( global_arg_lig_path, global);
   
   getcwd(cwd, sizeof(cwd));
 
-  if (cmdline_opts.lig_fname[0] == '.') 
-      memmove(cmdline_opts.lig_fname, cmdline_opts.lig_fname+1, strlen(cmdline_opts.lig_fname));
+  if ( global_arg_lig_path[0] == '.') 
+      memmove( global_arg_lig_path, global_arg_lig_path+1, strlen(global_arg_lig_path));
 
-  if (cmdline_opts.lig_fname[0] == '/') 
-      memmove(cmdline_opts.lig_fname, cmdline_opts.lig_fname+1, strlen(cmdline_opts.lig_fname));
+  if ( global_arg_lig_path[0] == '/') 
+      memmove( global_arg_lig_path, global_arg_lig_path+1, strlen(global_arg_lig_path));
 
-  printf ( "Ligand file: %s/%s", cwd, cmdline_opts.lig_fname);
+  printf ( "Ligand file: %s/%s", cwd, global_arg_lig_path);
   
   if(rv != SUCCESS){
-    fprintf(stderr, "Reading of %s: failed\n", cmdline_opts.lig_fname);
+    fprintf(stderr, "Reading of %s: failed\n",  global_arg_lig_path);
     exit(-1);
-  }
+   }
+
+
 
   initialize_inter_dist_matrix(global->target_atom_positions,
                                global->number_of_target_atoms,
@@ -145,7 +194,7 @@ int main(const int argc, const char **argv)
   features = &global->current_orientation;
   init_features(features);
   init_features(&global->best_orientation);
-  if(cmdline_opts.print_interactions) score_complex(global, features, stdout);
+  if(global_arg_print_interactions) score_complex(global, features, stdout);
   else score_complex(global, features, 0);
 
 
@@ -160,28 +209,28 @@ int main(const int argc, const char **argv)
 
   getcwd(cwd, sizeof(cwd));
 
-  if (cmdline_opts.prot_fname[0] == '.') 
-      memmove(cmdline_opts.prot_fname, cmdline_opts.prot_fname+1, strlen(cmdline_opts.prot_fname));
+  if (global_arg_prot_path[0] == '.') 
+      memmove(global_arg_prot_path, global_arg_prot_path+1, strlen(global_arg_prot_path));
 
-  if (cmdline_opts.prot_fname[0] == '/') 
-      memmove(cmdline_opts.prot_fname, cmdline_opts.prot_fname+1, strlen(cmdline_opts.prot_fname));
+  if (global_arg_prot_path[0] == '/') 
+      memmove(global_arg_prot_path, global_arg_prot_path+1, strlen(global_arg_prot_path));
 
-  printf ( "\nProtein file: %s/%s", cwd, cmdline_opts.prot_fname);
+  printf ( "\nProtein file: %s/%s", cwd, global_arg_prot_path);
 
 
 
-  if(cmdline_opts.print_interactions)
+  if(global_arg_print_interactions)
     score_complex(global, &cnode->features, stdout);
   else score_complex(global, &cnode->features, 0);
 
-  if(cmdline_opts.print_summary){
-    write_features_line(features, cmdline_opts.lig_fname, stdout, JUST_SCORE);
+  if(global_arg_print_summary){
+    write_features_line(features, global_arg_lig_path, stdout, JUST_SCORE);
   }
 
 
 
   /* Build the target matchprints file if desired */
-  if(cmdline_opts.build_interact_tbl){
+  if(global_arg_print_interactions){
 
 
     fprintf(stdout, "\n\n");
@@ -189,8 +238,8 @@ int main(const int argc, const char **argv)
                        global->number_of_target_atoms,
                        global->target_residues,
                        global->number_of_target_residues,
-                       cmdline_opts.prot_fname, global->ligand->atoms, &cnode->features, 
-                       cmdline_opts.print_saltbridges);
+                       global_arg_prot_path, global->ligand->atoms, &cnode->features, 
+                       global_arg_print_saltbridges);
   }
 
 /* Score the protein versus each ligand listed in the ligand file and
@@ -203,7 +252,7 @@ void build_interact_tbl(features_node_pt features_head,
                         features_node_pt features_last, atom_pt atoms,
                         int num_atoms, residue_pt residues, int num_residues,
                         const char* prot_fname, atom_pt ligand_atoms, 
-                        dock_feats_pt features, print_saltbridges)
+                        dock_feats_pt features, int print_saltbridges)
 {
   int num_rows = 0;   /*<! Number of ligands */
   int num_cols = 0;/*<! Number of features (hbonding atoms + hphob sidechains)*/
@@ -284,7 +333,7 @@ void build_interact_tbl(features_node_pt features_head,
         else if (prot_act == METAL_1 || prot_act == METAL_2)
             fprintf(fout, "Metal interaction\n");
         else if (prot_act == DONEPTOR)
-            fprintf(fout, "Doneptor - Doneptor\n", lig_idx, prot_act);
+            fprintf(fout, "Doneptor - Doneptor\n");
     }
     else if ((lig_act == METAL_1 || lig_act == METAL_2) && (prot_act == METAL_1 || prot_act == METAL_2))
         fprintf(fout, "Metal interaction\n");
@@ -367,112 +416,6 @@ print_interactions()
 
 }
 
-int parse_cmdline(const int argc, const char **argv, cmdline_opts_pt opts)
-{
-  int single_docking = 0;
-  int file_list = 0;
-  char header[2048];
-  opts->prot_fname = 0;
-  opts->sc_fname = 0;
-  opts->lig_fname = 0;
-  opts->waters_fname = 0;
-  opts->lig_list_fname = 0;
-  opts->water_list_fname = 0;
-  opts->build_interact_tbl = 1;
-  opts->print_interactions = 0;
-  opts->print_saltbridges = 0;
-
-  /* Run the "old" school way where protein comes first and then ligand */
-  if((argc == 3 || argc == 4) && argv[1][0] != '-'){
-    opts->prot_fname = (char *) mymalloc((strlen(argv[1]) + 1) * sizeof(char));
-    strcpy(opts->prot_fname, argv[1]);
-    opts->lig_fname = (char *) mymalloc((strlen(argv[2]) + 1) * sizeof(char));
-    strcpy(opts->lig_fname, argv[2]);
-    if(argc == 4){
-      opts->waters_fname = (char *) mymalloc((strlen(argv[3]) + 1) *
-                                             sizeof(char));
-      strcpy(opts->lig_fname, argv[3]);
-    }
-    return SUCCESS;
-  }
-
-  snprintf(header, 2048, "Example: hbind -p <target>.pdb -l <ligand>.mol2\n",
-           argv[0], argv[0]);
-
-
-  struct poptOption mainOptionsTable[] = {
-    { "protein", 'p', POPT_ARG_STRING, &opts->prot_fname, 0,
-      "Path to protein PDB file", 0},
-    { "ligand", 'l', POPT_ARG_STRING, &opts->lig_fname, 0,
-      "Path to ligand mol2 file (in docked conformation)", 0},
-    { "saltbridges", 's', POPT_ARG_NONE, &opts->print_saltbridges, 0,
-      "Include saltbridges in the output", 0},
-    { "summary", 's', POPT_ARG_NONE, &opts->print_summary, 0,
-      "Include a summary table in the output", 0},
-    POPT_AUTOHELP
-    POPT_TABLEEND
-  };
-
-  poptContext optCon = poptGetContext(argv[0], argc, argv, mainOptionsTable, 0);
-  poptSetOtherOptionHelp(optCon, header);
-
-  if(argc < 2) {
-    poptPrintUsage(optCon, stderr, 0);
-    return DISPLAY_HELP_ONLY;
-  }
-
-  int rc;
-  /* Process the options */
-  for(rc = 0; (rc = poptGetNextOpt(optCon)) >= 0; ){
-    switch(rc){
-    case BUILD_INTERACTIONS_TABLE:
-      opts->build_interact_tbl = BUILD_INTERACTIONS_TABLE;
-      break;
-    case PRINT_INTERACTIONS:
-      opts->print_interactions = PRINT_INTERACTIONS;
-      break;
-    case PRINT_SALTBRIDGES:
-      opts->print_saltbridges = PRINT_SALTBRIDGES;
-      break;
-    default:
-      fprintf(stderr, "Error in processing command line arguments\n");
-      return FATAL_ERROR;
-    }
-  }
-
-
-  /* Always print the interaction table,
-  not the individual interactions due to information overkill,
-  Sebastian Raschka 2016 */
-  opts->build_interact_tbl = 1;
-  opts->print_interactions = 0;
-
-
-  /* An error occurred during option processing */
-  if (rc < -1) {
-    fprintf(stderr, "%s: %s\n", poptBadOption(optCon, POPT_BADOPTION_NOALIAS),
-            poptStrerror(rc));
-    return FATAL_ERROR;
-  }
-
-  if(!opts->prot_fname){
-    fprintf(stderr, "A protein filename is required\n");
-    return FATAL_ERROR;
-  }
-
-  if(!opts->lig_fname){
-    fprintf(stderr, "A ligand filename is required\n");
-    return FATAL_ERROR;
-  }
-
-  if(opts->prot_fname && opts->lig_fname) single_docking = 1;
-  if(opts->prot_fname && opts->lig_list_fname) file_list = 1;
-
-
-  poptFreeContext(optCon);
-  return SUCCESS;
-}
-
 int load_ligand(char *filename, global_data_pt global)
 {
   FILE *MOL2;
@@ -516,9 +459,7 @@ void set_global_junk(global_data_pt global)
   sprintf(file, "%s/params/hbond.defn", global->hbind_dir );
   read_hyd_defn(file, &global->hyd_atom_rules);
 
-  /* make backup of target atom positions, since the positions in
-   * 'global->target_atoms' are modified when target side chains
-   * are rotated during bump resolvement */
+
   for ( i = 0; i < global->number_of_target_atoms; i++ )
     global->orig_target_atom_act[i] = global->target_atoms[i].act;
   memcpy(global->orig_target_atom_positions, global->target_atom_positions,
@@ -527,11 +468,6 @@ void set_global_junk(global_data_pt global)
   memset(global->target_rotations, 0, global->number_of_target_residues *
          sizeof(*global->target_rotations));
 
-  /* this is the array for the lookup table of inter-atomic distances,
-     before doing the very first bump-check after transforming a ligand,
-     this array is filled with the distances between all pairs of ligand
-     and target atoms, so that we will avoid most of the calls of
-     'dist_fun()' during the modeling of the induced complementarity - Volker*/
   global->target_ligand_distances =
     (float *) mymalloc (MAX_NUMBER_OF_MOL2_ATOMS *
                         global->number_of_target_atoms * sizeof (float) );
@@ -540,11 +476,7 @@ void set_global_junk(global_data_pt global)
                         global->number_of_target_atoms * sizeof (float) );
   distance_array(&global->target_dists_array, global->target_atoms,
                  global->number_of_target_atoms, 4.0, 5.0);
-  // not used -- need to allocate memory if we decide to use them
-  //init_target_nbr_arrays(global->target_atoms, global->number_of_target_atoms);
 
-  /* Allocate & initialize memory for flag arrays used in the scoring function
-   */
   global->target_flag =
     (short *) mymalloc(global->number_of_target_atoms * sizeof(short));
 
@@ -761,3 +693,6 @@ read_moved_target(char *pdb_fname, atom_pt target_atoms)
   return SUCCESS;
 
 }
+
+
+

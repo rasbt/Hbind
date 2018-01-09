@@ -70,7 +70,6 @@ unlink "./src/utils/hbind_itimer.o";
 unlink "./src/utils/err_handle.o";
 unlink "./src/utils/basics.o";
 unlink "./bin/hbind";
-unlink "./bin/hbind";
 
 
 $hbind_dir = '.';

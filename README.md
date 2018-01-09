@@ -35,15 +35,30 @@ To install Hbind, simply download this repository, unpack it, and navigate into 
 
     perl install_hbind.pl
 
-Upon successful installation, the hbind software will be ready to use from the `bin/` subdirectory. To show the help menu execute
+Upon successful installation, the Hbind software will be ready to use from the `bin/` subdirectory. To show the help and usage menu execute execute the following command in your terminal:
 
-    ./bin/hbind --help
+    ./bin/hbind -h
 
-and to show a brief usage example, run
+<br>
 
-    ./bin/hbind --usage
+```
+HBIND Version: 1.0.0
 
-in your command line terminal. Please see the "Usage" section below for more information on how to use Hbind.
+Documentation: http://psa-lab.github.io/hbind
+Raschka, Wolf, Bemister-Buffington, Kuhn (2018)
+Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)
+
+
+USAGE:
+-p STRING     Path to protein PDB file
+-l STRING     Path to ligand mol2 file (in docked conformation)
+-s            Include saltbridges in the output
+-t            Include a summary table in the output
+```
+
+
+
+Please see the "Usage" section below for more information on how to use Hbind.
 
 <br>
 
@@ -51,8 +66,8 @@ in your command line terminal. Please see the "Usage" section below for more inf
 
 To execute Hbind, please navigate to its main directory from where you installed it and run the following command to identify the hydrogen bonds in a protein ligand interface:
 
-    bin/hbind --protein ./example_files/1KPF.pdb \
-    --ligand ./example_files/1KPF_AMP.mol2 
+    ./bin/hbind -p ./example_files/1KPF.pdb \
+    -l ./example_files/1KPF_AMP.mol2 
 
 Here, 1A9X.pdb is an excerpt from the PDB structure [1KPF](https://www.rcsb.org/pdb/explore.do?structureId=1kpf) (PKCI-substrate analog) with its ligand `1KPF_AMP.mol2` (adenosine monophsophate). The structures are provided in Hbind's subdirectory "[example_files/](./example_files)".
 
@@ -85,11 +100,10 @@ Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 | hbond     8  22  N.ar    -- ILE  A       44     N        3.156  154.9  Acceptor - Donor
 ```
 
-To include salt bridges in the listing, you can use the `--saltbridges` option as shown below:
+To include salt bridges in the listing, you can use the `-s` option as shown below:
 
-    ./bin/hbind --protein ./example_files/1KPF.pdb \
-    --ligand ./example_files/1KPF_AMP.mol2 \
-    --saltbridges
+    ./bin/hbind -p ./example_files/1KPF.pdb \
+    -l ./example_files/1KPF_AMP.mol2 -s
 
 ```
 HBIND Version: 1.0.0
@@ -119,11 +133,10 @@ Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 | saltb     5  12  O.3     -- ASP  A       43     OD2      3.607  N/A    Donor - Acceptor
 ```
 
-For additional information, such as the number of hydrophobic contacts or [SLIDE](http://www.kuhnlab.bmb.msu.edu/software/slide/) docking scores, provide the `--summary` flag:
+For additional information, i.e. a summary talbe that includes the number of hydrophobic contacts or [SLIDE](http://www.kuhnlab.bmb.msu.edu/software/slide/) docking scores, provide the `-t` flag:
 
-    ./bin/hbind --protein ./example_files/1KPF.pdb \
-    --ligand ./example_files/1KPF_AMP.mol2 \
-    --saltbridges --summary
+    ./bin/hbind -p ./example_files/1KPF.pdb \
+    -l ./example_files/1KPF_AMP.mol2 -s -t
 
 ```
 HBIND Version: 1.0.0

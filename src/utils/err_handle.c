@@ -8,6 +8,7 @@ static char err_fname[FILENAME_MAX + 1];
 static size_t err_fname_len = 0;
 
 
+
 void set_err_filename(char *fname)
 {
   if(strlen(fname) > FILENAME_MAX)
@@ -28,8 +29,7 @@ void err_print(char *message)
 
 void err_panic(char  *function, char  *message)
 {
-  fprintf(stdout, "FATAL ERROR: %s (%s)\n", message, function );
-  fprintf(stderr, "FATAL ERROR: %s (%s)\n", message, function );
+  fprintf(stdout, stderr, "FATAL ERROR: %s (%s)\n", message, function );
   exit(EXIT_FAILURE);
 }
 
@@ -44,7 +44,6 @@ void err_panic2(char  *function, char  *message)
     }
   }
   fprintf(stderr, "FATAL ERROR: %s (%s)\n", message, function );
-  printf ( "FATAL ERROR: %s (%s) -- Please see err file\n", message, function );
   exit ( EXIT_FAILURE);
 }
 
@@ -65,13 +64,11 @@ void err_error2(char  *function, char  *message)
     }
   }
   fprintf ( stderr, "ERROR: %s (%s)\n", message, function );
-  printf ( "ERROR: %s (%s) -- Please see err file\n", message, function );
 }
 
 void  err_warning ( char  *function, char  *message )
 {
   fprintf ( stderr, "WARNING: %s (%s)\n", message, function );
-  printf ( "WARNING: %s (%s) -- Please see err file\n", message, function );
 }
 
 void  err_warning2 ( char  *function, char  *message)
@@ -85,7 +82,6 @@ void  err_warning2 ( char  *function, char  *message)
     }
   }
   fprintf ( stderr, "WARNING: %s (%s)\n", message, function );
-  printf ( "WARNING: %s (%s) -- Please see err file\n", message, function );
 }
 
 void err_usage(char  *message)

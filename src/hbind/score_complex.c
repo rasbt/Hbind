@@ -344,9 +344,9 @@ void score_complex(global_data_pt global, dock_feats_pt features,
 
             number_of_salt_bridges++;
             raw_terms[NUMBER_OF_SALT_BRIDGES]++;
-            if(good_acts_file)
-              print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
-                                "MetalSB", good_acts_file);
+            //if(good_acts_file)
+            //  print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
+            //                    "MetalSB", good_acts_file);
 #ifdef PRINT_INTERACTIONS
             print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
                               "MetalSB", stdout);
@@ -377,9 +377,9 @@ void score_complex(global_data_pt global, dock_feats_pt features,
             features->salt_bridge_dists[number_of_salt_bridges] = dist;
             number_of_salt_bridges++;
             raw_terms[NUMBER_OF_SALT_BRIDGES]++;
-            if(good_acts_file)
-              print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
-                                "SB", good_acts_file);
+            //if(good_acts_file)
+            //  print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
+            //                    "SB", good_acts_file);
 #ifdef PRINT_INTERACTIONS
             print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
                               "SB", stdout);
@@ -414,9 +414,9 @@ void score_complex(global_data_pt global, dock_feats_pt features,
             number_of_hbonds++;
             raw_terms[NUMBER_OF_HBONDS]++;
           }
-          if(good_acts_file)
-            print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
-                              "HB", good_acts_file);
+          //if(good_acts_file)
+          //  print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
+          //                    "HB", good_acts_file);
 #ifdef PRINT_INTERACTIONS
           print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i, "HB",
 		            stdout);
@@ -451,9 +451,9 @@ void score_complex(global_data_pt global, dock_feats_pt features,
           raw_terms[NUMBER_OF_HPHOB_HPHOB_CONTACT]++;
           number_of_hphob_hphob_contact_of_one_lig_atm++;
           features->target_hphob_contacts[j]++;
-          if(good_acts_file)
-            print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
-                              "HPh", good_acts_file);
+          //if(good_acts_file)
+          //  print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
+          //                    "HPh", good_acts_file);
 #ifdef PRINT_INTERACTIONS
           print_interaction(&target[j], TARGET, j, &ligand[i], LIGAND, i,
                             "HPh", stdout);
