@@ -6,12 +6,26 @@ To install Hbind, simply download this repository, unpack it, and navigate into 
 
     perl install_hbind.pl
 
-Upon successful installation, the hbind software will be ready to use from the `bin/` subdirectory. To show the help menu execute
+Upon successful installation, the Hbind software will be ready to use from the `bin/` subdirectory. To show the help and usage menu execute execute the following command in your terminal:
 
-    ./bin/hbind --help
+    ./bin/hbind -h
 
-and to show a brief usage example, run
+<br>
 
-    ./bin/hbind --usage
+```
+HBIND Version: 1.0.0
 
-in your command line terminal. Please see the "[User Guide](user_guide.md)" section for more information on how to use Hbind.
+Documentation: http://psa-lab.github.io/hbind
+Raschka, Wolf, Bemister-Buffington, Kuhn (2018)
+Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)
+
+
+USAGE:
+-p STRING     Path to protein PDB file
+-l STRING     Path to ligand mol2 file (in docked conformation)
+-s            Include saltbridges in the output
+-t            Include a summary table in the output
+```
+
+
+ Please see the "[User Guide](user_guide.md)" section for more information on how to use Hbind.

@@ -2,8 +2,8 @@
 
 To execute Hbind, please navigate to its main directory from where you installed it and run the following command to identify the hydrogen bonds in a protein ligand interface:
 
-    bin/hbind --protein ./example_files/1KPF.pdb \
-    --ligand ./example_files/1KPF_AMP.mol2 
+    ./bin/hbind -p ./example_files/1KPF.pdb \
+    -l ./example_files/1KPF_AMP.mol2 
 
 Here, 1A9X.pdb is an excerpt from the PDB structure [1KPF](https://www.rcsb.org/pdb/explore.do?structureId=1kpf) (PKCI-substrate analog) with its ligand `1KPF_AMP.mol2` (adenosine monophsophate). The structures are provided in Hbind's subdirectory "[example_files/](https://github.com/rasbt/Hbind/tree/master/example_files)".
 
@@ -36,11 +36,10 @@ Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 | hbond     8  22  N.ar    -- ILE  A       44     N        3.156  154.9  Acceptor - Donor
 ```
 
-To include salt bridges in the listing, you can use the `--saltbridges` option as shown below:
+To include salt bridges in the listing, you can use the `-s` option as shown below:
 
-    ./bin/hbind --protein ./example_files/1KPF.pdb \
-    --ligand ./example_files/1KPF_AMP.mol2 \
-    --saltbridges
+    ./bin/hbind -p ./example_files/1KPF.pdb \
+    -l ./example_files/1KPF_AMP.mol2 -s
 
 ```
 HBIND Version: 1.0.0
@@ -70,11 +69,10 @@ Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 | saltb     5  12  O.3     -- ASP  A       43     OD2      3.607  N/A    Donor - Acceptor
 ```
 
-For additional information, such as the number of hydrophobic contacts or [SLIDE](http://www.kuhnlab.bmb.msu.edu/software/slide/) docking scores, provide the `--summary` flag:
+For additional information, i.e. a summary talbe that includes the number of hydrophobic contacts or [SLIDE](http://www.kuhnlab.bmb.msu.edu/software/slide/) docking scores, provide the `-t` flag:
 
-    ./bin/hbind --protein ./example_files/1KPF.pdb \
-    --ligand ./example_files/1KPF_AMP.mol2 \
-    --saltbridges --summary
+    ./bin/hbind -p ./example_files/1KPF.pdb \
+    -l ./example_files/1KPF_AMP.mol2 -s -t
 
 ```
 HBIND Version: 1.0.0
