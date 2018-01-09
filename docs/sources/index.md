@@ -11,8 +11,8 @@ Software to rigorously define intermolecular H-bonds by donor/acceptor chemistry
 ### Links
 
 - Journal paper: [insert]
-- Code repository: [https://github.com/psa-lab/hbind](https://github.com/psa-lab/hbind)
-- Documentation: [https://psa-lab.github.io/hbind](https://github.com/psa-lab/hbind)
+- Code repository: [https://github.com/psa-lab/Hbind](https://github.com/psa-lab/Hbind)
+- Documentation: [https://psa-lab.github.io/Hbind](https://github.com/psa-lab/Hbind)
 
 <br>
 <br>
