@@ -15,7 +15,7 @@ Upon successful installation, the Hbind software will be ready to use from the `
 ```
 HBIND Version: 1.0.0
 
-Documentation: http://psa-lab.github.io/hbind
+Documentation: http://psa-lab.github.io/Hbind
 Raschka, Wolf, Bemister-Buffington, Kuhn (2018)
 Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)
 

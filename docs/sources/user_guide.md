@@ -16,7 +16,7 @@ After running the command from the beginning of this section, the following outp
 ```
 HBIND Version: 1.0.0
 
-Documentation: http://psa-lab.github.io/hbind
+Documentation: http://psa-lab.github.io/Hbind
 Raschka, Wolf, Bemister-Buffington, Kuhn (2018)
 Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)
 
@@ -44,7 +44,7 @@ To include salt bridges in the listing, you can use the `-s` option as shown bel
 ```
 HBIND Version: 1.0.0
 
-Documentation: http://psa-lab.github.io/hbind
+Documentation: http://psa-lab.github.io/Hbind
 Raschka, Wolf, Bemister-Buffington, Kuhn (2018)
 Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)
 
@@ -77,7 +77,7 @@ For additional information, i.e. a summary talbe that includes the number of hyd
 ```
 HBIND Version: 1.0.0
 
-Documentation: http://psa-lab.github.io/hbind
+Documentation: http://psa-lab.github.io/Hbind
 Raschka, Wolf, Bemister-Buffington, Kuhn (2018)
 Protein Structure and Analysis Lab, MSU (http://kuhnlab.bmb.msu.edu)
 
