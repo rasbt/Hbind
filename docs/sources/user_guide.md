@@ -5,7 +5,7 @@ To execute Hbind, please navigate to its main directory from where you installed
     ./bin/hbind -p ./example_files/1KPF.pdb \
     -l ./example_files/1KPF_AMP.mol2 
 
-Here, 1A9X.pdb is an excerpt from the PDB structure [1KPF](https://www.rcsb.org/pdb/explore.do?structureId=1kpf) (PKCI-substrate analog) with its ligand `1KPF_AMP.mol2` (adenosine monophsophate). The structures are provided in Hbind's subdirectory "[example_files/](https://github.com/rasbt/Hbind/tree/master/example_files)".
+Here, 1KPF.pdb is an excerpt from the PDB structure [1KPF](https://www.rcsb.org/pdb/explore.do?structureId=1kpf) (PKCI-substrate analog) with its ligand `1KPF_AMP.mol2` (adenosine monophsophate). The structures are provided in Hbind's subdirectory "[example_files/](https://github.com/rasbt/Hbind/tree/master/example_files)".
 
 ***Before you run Hbind, please make sure that you provide the protein structure in PDB format and the ligand structure in MOL2 format, and please ensure that the ligand's protonation state (hydrogen assignment) is correct.***
 
