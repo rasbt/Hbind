@@ -129,6 +129,11 @@ int main(const int argc, const char **argv)
 
 
   opt = getopt( argc, argv, optString );
+
+  if ( opt == -1 ) {
+    display_usage();
+  }
+
   while( opt != -1 ) {
     switch( opt ) {
       case 's':

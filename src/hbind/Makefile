@@ -78,7 +78,7 @@ OBJS =	debug_funs.o \
 
 $(BINPATH)/$(EXENAME): $(OBJS) main_hbind.o
 	$(CC) $(COPTS) -o $(BINPATH)/$(EXENAME) $(OBJS) main_hbind.o \
-	$(LIBS) -lpopt
+	$(LIBS)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<
