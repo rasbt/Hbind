@@ -89,7 +89,7 @@ Ligand file: /Users/sebastian/code/hbind/example_files/1KPF_AMP.mol2
 Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 
 ++++++++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++++++++
-#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
+#            | Ligand Atom -- Protein  Atom | Bond                D-H-A  Lig.-Prot.
 #            |  #  TYPE    -- RES  CH_ID  RES_NO  A_TYPE | DIST.  ANGLE  INTERACTION
 | hbond     1   2  O.2     -- ASN  A       99     ND2      2.911  174.0  Acceptor - Donor
 | hbond     2   3  O.3     -- SER  A      107     N        2.802  166.8  Acceptor - Donor
@@ -117,7 +117,7 @@ Ligand file: /Users/sebastian/code/hbind/example_files/1KPF_AMP.mol2
 Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 
 ++++++++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++++++++
-#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
+#            | Ligand Atom -- Protein  Atom | Bond                D-H-A  Lig.-Prot.
 #            |  #  TYPE    -- RES  CH_ID  RES_NO  A_TYPE | DIST.  ANGLE  INTERACTION
 | hbond     1   2  O.2     -- ASN  A       99     ND2      2.911  174.0  Acceptor - Donor
 | hbond     2   3  O.3     -- SER  A      107     N        2.802  166.8  Acceptor - Donor
@@ -159,7 +159,7 @@ Protein file: /Users/sebastian/code/hbind/example_files/1KPF.pdb
 | SLIDE AffiScore                     : -7.557
 
 ++++++++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++++++++
-#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein
+#            | Ligand Atom -- Protein  Atom | Bond                D-H-A  Lig.-Prot.
 #            |  #  TYPE    -- RES  CH_ID  RES_NO  A_TYPE | DIST.  ANGLE  INTERACTION
 | hbond     1   2  O.2     -- ASN  A       99     ND2      2.911  174.0  Acceptor - Donor
 | hbond     2   3  O.3     -- SER  A      107     N        2.802  166.8  Acceptor - Donor
