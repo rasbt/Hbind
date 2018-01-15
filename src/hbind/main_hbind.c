@@ -286,7 +286,7 @@ void build_interact_tbl(features_node_pt features_head,
 
 
   fprintf(fout, "++++++++++++++++++++++++++++++++ HBind Interaction Table ++++++++++++++++++++++++++++++++\n");
-  fprintf(fout, "#            | Ligand Atom -- Protein  Atom | Bond   D-H-A  Ligand-Protein\n");
+  fprintf(fout, "#            | Ligand Atom -- Protein  Atom | Bond                D-H-A  Ligand-Protein\n");
   fprintf(fout, "#            |  #  TYPE    -- RES  CH_ID  RES_NO  A_TYPE | DIST.  ANGLE  INTERACTION\n");
   for(i = 0; i < features->number_of_hbonds; i++ ){
     lig_idx = features->ligand_hbond_idz[i];
