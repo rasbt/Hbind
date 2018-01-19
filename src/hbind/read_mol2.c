@@ -7,6 +7,10 @@
 #include "vdwrad.h"
 #include <errno.h>
 
+
+int number_of_h_atoms;
+number_of_h_atoms = 0;
+
 void error_orbit(char *code)
 {
   char err_msg[256];
@@ -697,6 +701,13 @@ int read_mol2(FILE *in, char *filename, global_data_pt global, char *needle)
                       &molecule->bonds[counter].atom1,
                       &molecule->bonds[counter].atom2,
                       molecule->bonds[counter].type_str);
+
+
+
+if(strcmp(molecule->atoms[counter].type_str, "H")==0){
+    number_of_h_atoms++;
+}
+
 #ifdef TRACE
     fprintf(stdout, "Number of items read from bond line %d is %d\n",
             i, num_read);
@@ -768,5 +779,19 @@ int read_mol2(FILE *in, char *filename, global_data_pt global, char *needle)
 	molecule->number_of_substructures = i+1;
       }
   }
+
+  if(number_of_h_atoms==0){
+    printf("\n\n****WARNING!!!***\n"
+           "No protons were found in the input mol2 file,\n"
+           "and this is likely to result in erroneous output due to missing \n"
+           "hydrogen bonding groups. Please follow the YASARA OptHyd protocol\n"
+           "(described in Raschka, Wolf, Bemister-Buffington, and Kuhn (2018)\n"
+           "'Protein-ligand interfaces are polarized: Discovery of a strong trend\n"
+           "for intermolecular hydrogen bonds to favor donors on the protein side\n"
+           "with implications for predicting and designing ligand complexes', JCAMD)\n"
+           "or another robust method for protonating your ligand in complex\n"
+           "with the protein before running Hbind.\n\n");
+  }
+
   return SUCCESS;
 }
