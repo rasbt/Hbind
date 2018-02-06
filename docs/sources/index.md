@@ -3,14 +3,13 @@
 
 Software to rigorously define intermolecular H-bonds by donor/acceptor chemistry and geometric constraints, which was developed, used, and described in detail in 
 
-- Sebastian Raschka, Wolf A., Bemister-Buffington J., and Kuhn L.A. (2018) 
-"Protein-ligand interfaces are polarized: Discovery of a strong trend for intermolecular hydrogen bonds to favor donors on the protein side with implications for predicting and designing ligand complexes." J. Computer-Aided Molec. Design [in revision]
+- Raschka, Sebastian, Alex Wolf, Joseph Bemister‐Buffington, and Leslie A. Kuhn (2018) “Protein-ligand interfaces are polarized: discovery of a strong trend for intermolecular hydrogen bonds to favor donors on the protein side with implications for predicting and designing ligand complexes” Journal of Computer-Aided Molecular Design. *Journal of Computer-Aided Molecular Design* (accepted manuscript) [[biorxiv preprint](https://www.biorxiv.org/content/early/2018/02/05/260612)]
 
 <br>
 
 ### Links
 
-- Journal paper: [insert]
+- Journal paper: [https://www.biorxiv.org/content/early/2018/02/05/260612](https://www.biorxiv.org/content/early/2018/02/05/260612)
 - Code repository: [https://github.com/psa-lab/Hbind](https://github.com/psa-lab/Hbind)
 - Documentation: [https://psa-lab.github.io/Hbind](https://github.com/psa-lab/Hbind)
 
