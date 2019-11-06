@@ -194,7 +194,7 @@ int  eigen ( double a[6][6],
 {
   double e[6];
 
-  tred2 ( a, b, c, e, 1.0 / HUGE );
+  tred2 ( a, b, c, e, 1.0 / HG );
   if ( tql2 ( b, c, e, 1.0E-20 ) == FAILURE )
     return FAILURE;
   return SUCCESS;
